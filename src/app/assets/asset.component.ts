@@ -48,7 +48,8 @@ const treeData : assetNode[] = [
 export class AssetComponent implements OnInit {
 
   showFiller = true;
-  selectedAsset = 5;
+  selectedAssetId = 5;
+  selectedAsset! : Object
   activeNode = '';
   title = 'Front End Assignment';
 
@@ -118,7 +119,7 @@ export class AssetComponent implements OnInit {
  
   selectedNode(node: any){
     console.log(node)
-    this.selectedAsset = node.id
+    this.selectedAsset = node
     }
 
   }

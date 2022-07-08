@@ -30,10 +30,10 @@
     </mat-drawer>
   
     <div class="example-sidenav-content mat-elevation-z8">
-      <div  *ngIf="selectedAsset == 5">
+      <div  *ngIf="selectedAssetId == 5">
          No Asset Selected 
       </div>
-      <div *ngIf="selectedAsset < 5" style="width:60%;">
+      <div *ngIf="selectedAssetId < 5" style="width:60%;">
         <canvas
         baseChart
         [chartType]="'line'"
@@ -45,7 +45,7 @@
       >
       </canvas>
       </div>
-       <app-charts></app-charts>
-    </div>
+       <!-- <app-charts [selectedAsset]="selectedAsset"></app-charts> -->
+    </div>  
   
   </mat-drawer-container>

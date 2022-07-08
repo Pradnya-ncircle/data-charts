@@ -1,7 +1,7 @@
 
 import { Action, createReducer,on } from "@ngrx/store"
 
-import { chartData } from "src/app/assets/chart-data.model"
+import { chartData } from "src/app/charts/chart-data.model"
 // import  { loadAssetData, loadAssetDataSuccess, loadSelectedAsset, loadSelectedAssetChartData } from './asset-state.actions'
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import * as AssetActions from '../asset-state/asset-state.actions';
@@ -81,7 +81,4 @@ export const assetReducer = createReducer(
 //             chartsData : action._p.selectectedAssetChartData
 //         }
 //     }))
-
-
-    
 // )

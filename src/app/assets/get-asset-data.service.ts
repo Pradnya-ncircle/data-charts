@@ -14,4 +14,8 @@ export class GetAssetDataService {
     return this.http.get('assets/data/measurements.json')
   }
 
+  getDataById(id:number):Observable<any>{
+    return this.http.get('assets/data/measurements.json/:id')
+  }
+
 }
