@@ -78,3 +78,9 @@ mat-toolbar {
     
   }
 
+.node-custom-styles{
+      cursor : pointer;
+}
+.node-custom-styles :hover{
+  color : rgb(216, 215, 215)
+}

@@ -6,7 +6,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 // loadSelectedAsset,
 // loadSelectedAssetChartData
 // } from './asset-state.actions';
-import { GetAssetDataService } from '../../asset-data-charts/get-asset-data.service';
+import { GetAssetDataService } from '../../assets/get-asset-data.service';
 import { of, from, Observable } from 'rxjs';
 import { switchMap, map, catchError, withLatestFrom, switchAll, mergeMap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';

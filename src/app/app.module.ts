@@ -11,7 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
-import { AssetDataChartsComponent } from './asset-data-charts/asset-data-charts.component';
+import { AssetComponent } from './assets/asset.component';
 
 import {  ChartsModule } from 'ng2-charts';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -23,6 +23,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import  { assetReducer } from './app-state/asset-state/asset-state.reducer';
 import  { AssetEffects } from './app-state/asset-state/asset-state.effects';
+import { ChartsComponent } from './charts/charts.component';
 
 
 
@@ -30,7 +31,8 @@ import  { AssetEffects } from './app-state/asset-state/asset-state.effects';
 @NgModule({
   declarations: [
     AppComponent,
-    AssetDataChartsComponent,
+    AssetComponent,
+    ChartsComponent
 
   ],
   imports: [

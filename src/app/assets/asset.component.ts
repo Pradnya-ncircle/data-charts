@@ -41,11 +41,11 @@ const treeData : assetNode[] = [
 
 ]
 @Component({
-  selector: 'app-asset-data-charts',
-  templateUrl: './asset-data-charts.component.html',
-  styleUrls: ['./asset-data-charts.component.css']
+  selector: 'app-asset',
+  templateUrl: './asset.component.html',
+  styleUrls: ['./asset.component.css']
 })
-export class AssetDataChartsComponent implements OnInit {
+export class AssetComponent implements OnInit {
 
   showFiller = true;
   selectedAsset = 5;
@@ -100,7 +100,8 @@ export class AssetDataChartsComponent implements OnInit {
           data : Object.values(this.dataSet[1]),// measurement values
           label : 'Asset 4', //selected asset 
           fill : false,
-          tension: 0
+          tension: 0,
+          borderColor: '#4588d4'
         }
       ]; 
     

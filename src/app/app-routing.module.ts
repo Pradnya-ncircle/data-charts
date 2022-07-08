@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AssetDataChartsComponent } from './asset-data-charts/asset-data-charts.component';
+import { AssetComponent } from './assets/asset.component';
 
 const routes: Routes = [
   {
-    path : 'asset-data', component:AssetDataChartsComponent,
+    path : 'asset-data', component:AssetComponent,
   },
   {
-    path : '**' , component : AssetDataChartsComponent
+    path : '**' , redirectTo : 'asset-data'
   }
 ];
 

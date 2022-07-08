@@ -1,6 +1,6 @@
 
-import { Asset } from "src/app/asset-data-charts/asset-data.model";
-import { chartData } from "src/app/asset-data-charts/chart-data.model";
+import { Asset } from "src/app/assets/asset-data.model";
+import { chartData } from "src/app/assets/chart-data.model";
 
 
 import { createAction, props } from '@ngrx/store';
