@@ -1,1 +1,12 @@
-<p>charts works!</p>
+<div  *ngIf="chartLabels.length > 0">
+    <canvas
+    baseChart
+    [chartType]="'line'"
+    [legend]="true"
+    [datasets]="chartData"
+    [labels]="chartLabels"
+    [options]="chartOptions"
+    >
+    </canvas>
+
+</div>

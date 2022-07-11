@@ -24,28 +24,18 @@
             <ng-container matTreeNodeOutlet></ng-container>
             </div>
           </mat-nested-tree-node>
-     
-        
         </mat-tree>
     </mat-drawer>
   
     <div class="example-sidenav-content mat-elevation-z8">
+     
       <div  *ngIf="selectedAssetId == 5">
          No Asset Selected 
       </div>
-      <div *ngIf="selectedAssetId < 5" style="width:60%;">
-        <canvas
-        baseChart
-        [chartType]="'line'"
-        [legend]="false"
-        [datasets]="chartData"
-        [labels]="chartLabels"
-        [options]="chartOptions"
-
-      >
-      </canvas>
+      <div *ngIf="selectedAssetId < 5" style="width:60%;"> 
+          <app-charts [selectedAsset]="selectedAsset"></app-charts>
       </div>
-       <!-- <app-charts [selectedAsset]="selectedAsset"></app-charts> -->
+   
     </div>  
   
   </mat-drawer-container>

@@ -86,32 +86,32 @@ export class AssetComponent implements OnInit {
     // })  
     // this.store.dispatch(loadSelectedAsset({selectedAsset : this.selectedAsset}))
     // this.store.dispatch(loadAssetDataSuccess());
-    this.dataService.getData().subscribe(res=>{
-        this.results = {
-          data : res
-        };
+    // this.dataService.getData().subscribe(res=>{
+    //     this.results = {
+    //       data : res
+    //     };
  
-      this.dataSet = Object.entries(this.results.data).map((val:any)=>{ return val[1].measurements})
-       Object.keys(this.dataSet[1]).forEach((element :any) => {
-           this.dates.push(this.datePipe.transform(element, 'MMM yy'))
-      });
+    //   this.dataSet = Object.entries(this.results.data).map((val:any)=>{ return val[1].measurements})
+    //    Object.keys(this.dataSet[1]).forEach((element :any) => {
+    //        this.dates.push(this.datePipe.transform(element, 'MMM yy'))
+    //   });
 
-       this.chartData = [
-        {
-          data : Object.values(this.dataSet[1]),// measurement values
-          label : 'Asset 4', //selected asset 
-          fill : false,
-          tension: 0,
-          borderColor: '#4588d4'
-        }
-      ]; 
+    //    this.chartData = [
+    //     {
+    //       data : Object.values(this.dataSet[1]),// measurement values
+    //       label : 'Asset 4', //selected asset 
+    //       fill : false,
+    //       tension: 0,
+    //       borderColor: '#4588d4'
+    //     }
+    //   ]; 
     
-      this.chartLabels = this.dates // measurements keys
+    //   this.chartLabels = this.dates // measurements keys
     
-      this.chartOptions = {
-        responsive: true
-      };
-    })
+    //   this.chartOptions = {
+    //     responsive: true
+    //   };
+    // })
 
   }
 
@@ -119,7 +119,8 @@ export class AssetComponent implements OnInit {
  
   selectedNode(node: any){
     console.log(node)
-    this.selectedAsset = node
+    this.selectedAsset = node.id
+    this.selectedAssetId = node.id;
     }
 
   }
