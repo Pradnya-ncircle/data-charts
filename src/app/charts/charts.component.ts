@@ -15,13 +15,17 @@ export class ChartsComponent implements OnInit {
   assetSelected : any;
   @Input('selectedAsset') asset : Object | undefined;
 
-   chartLabels : any;
+   chartLabels :any [] = [];
    chartData : any;
-   chartOptions = {
-    responsive : true
-  }
+   chartOptions :any;
   dates : any[] = [];
   measurements : any[] = []
+
+  dates2 : any[] = [];
+  measurements2 : any[] =[];
+
+  dates3 : any[] = [];
+  measurements3 : any[] =[];
 
   @ViewChild(BaseChartDirective)
   chart!: BaseChartDirective; 
@@ -44,45 +48,82 @@ export class ChartsComponent implements OnInit {
       }
       else{
         
-        this.getChartData(this.assetSelected)
+        this.setChartData(this.assetSelected)
       }
     }
   }
 
 
-  getChartData(selected:any){
+  setChartData(selected:any){
     
     this.dates = []
     this.measurements = []
-    var values : Array<number>;
    
     this.httpService.getDataById(selected).subscribe(res=>{
-      console.log(res)
+     
       Object.entries(res.measurements).forEach(([dates,value])=>{
-        
          this.dates.push(this.datePipe.transform(dates, 'MMM yy'));
          this.measurements.push(value)
-         
-        
       })  
 
-      console.log(this.dates)
-      console.log(this.measurements)
-        this.chartLabels = this.dates
+      this.getChartData(this.dates, this.measurements,selected)
+     },(error)=>{
+           
+              this.httpService.getData().subscribe(res=>{
+
+               Object.entries(res[1].measurements).forEach(([dates,value])=>{
+                this.dates.push(this.datePipe.transform(dates, 'MMM yy'));
+                this.measurements.push(value)
+               })
+
+                    if(selected == 3){
+                                Object.entries(res[2].measurements).forEach(([dates,value])=>{
+                                  this.dates3.push(this.datePipe.transform(dates, 'MMM yy'));
+                                  this.measurements3.push(value)
+                                        this.getChartData(this.dates3, this.measurements3, selected)
+                                      
+
+                                })
+                  }
+                  Object.entries(res[2].measurements).forEach(([dates,value])=>{
+                    this.dates2.push(this.datePipe.transform(dates, 'MMM yy'));
+                    this.measurements3.push(value)
+                    this.measurements2.push(value)
+           
+                  
+                    if(selected == 1){
+                      var sum : any [] = []
+                       this.measurements.map((num, idx) => {
+                         sum.push (num + this.measurements2[idx]);
+                      });
+                     this.getChartData(this.dates,sum,selected)
+                    }
+                   
+                 })  
+                })
+       
+     }) 
+  
+  
+    }
+
+
+    getChartData(labels:any, dataset:any,selected :any){
+      this.chartLabels = labels
         
-        this.chartData = [
-          {
-                  data : this.measurements,// measurement values
-                  label : 'Asset '+selected, //selected asset 
-                  fill : false,
-                  tension: 0,
-                  borderColor: '#4588d4'
-                
-          }
-        ]
-     })
-  
-  
+      this.chartData = [
+        {
+                data :dataset,// measurement values
+                label : 'Asset '+selected, //selected asset 
+                fill : false,
+                tension: 0,
+                borderColor: '#4588d4' 
+        }
+      ]
+
+      this.chartOptions = {
+        responsive : true
+      }
     }
 
 }

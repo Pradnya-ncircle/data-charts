@@ -6,9 +6,7 @@ import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { Store } from '@ngrx/store';
 import { BaseChartDirective } from 'ng2-charts';
 import { map } from 'rxjs/operators';
-import { loadAssets, loadAsstesSuccess, selectAsset } from '../app-state/asset-state/asset-state.actions';
-import { selectAssetEntities } from '../app-state/asset-state/asset-state.reducer';
-import { selectCurrentAsset, selectCurrentAssetId } from '../app-state/asset-state/asset-state.selectors';
+
 // import { loadAssetData, loadAssetDataSuccess, loadSelectedAsset } from '../app-state/asset-state/asset-state.actions';
 // import { selectedAssetData } from '../app-state/asset-state/asset-state.selectors';
 
