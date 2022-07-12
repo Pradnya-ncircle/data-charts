@@ -81,6 +81,10 @@ export class AssetComponent implements OnInit {
   chartLabels : any;
   chartOptions : any;
 
+  datesVal: any[] = []
+  measurements1 : any []= []
+  sum : any [] = []
+    
 
   @ViewChild(BaseChartDirective)
   chart!: BaseChartDirective; 
@@ -89,6 +93,7 @@ export class AssetComponent implements OnInit {
     return node.children;
   });
   dataSource = new MatTreeNestedDataSource<assetNode>();
+  measurements: any[] =[];
 
   constructor(private dataService : GetAssetDataService,
     private store : Store,
@@ -104,7 +109,7 @@ export class AssetComponent implements OnInit {
     
     //   this.assets.forEach((asset:any)=>{
     //     if(asset.parentId !=null){
-
+        // attach children
     //     }
     //   })
     })
@@ -117,53 +122,87 @@ export class AssetComponent implements OnInit {
  
   
   iterateTree(treeNodes:any, selectedNode : any) {
+    
     for(let treeNode of treeNodes) {
         if(treeNode.id == selectedNode){
-          console.log(treeNode)
+            if(treeNode.children.length > 0){
+              this.iterateTree(treeNode.children, selectedNode)                
+            }
+            else{
+              this.dataService.getDataById(treeNode.id).subscribe(res=>{
+                console.log(res)
+               })
+            }
+            
         }
-      if(treeNode.children != null) this.iterateTree(treeNode.children, selectedNode);
+ 
     }
   }
 
+  getKeyValues(obj : any){
+    var tempDts :any [] = []
+    var tempMs: any [] = []
+    Object.entries(obj).forEach(([keys,values])=>{
+      tempDts.push(this.datePipe.transform(keys, 'MMM yy'))
+      tempMs.push(values)
+      return {
+       tempDts, tempMs
+      }
+    })
+  }
 
   selectedNode(node: any){
     console.log(node)
     this.selectedAsset = node.id
     this.selectedAssetId = node.id;
 
+    this.iterateTree(treeData, this.selectedAssetId); //recursive 
 
-    // const iterateTree = (treeNodes: any[]) => treeNodes.forEach(treeNode=>{
-
-    //   if(treeNode.children !=null ) iterateTree(treeNode.children)
-
-    // })
-
-    // iterateTree(treeNodes)
-
-    this.iterateTree(treeData, this.selectedAssetId);
-
-        // treeData.forEach((node:any)=>{
-        //     if(this.selectedAssetId === node.id){
-        //       node.children?.map((child:any)=>{
-        //       if(child.parentId === this.selectedAssetId){
-        //           if(child.children.length > 0){
-        //               child.children.map((lowestChild : any)=>{
-                       
-        //                 if(lowestChild.parentId === this.selectedAssetId){
-
-        //                   console.log(lowestChild.id)
-                          
-        //                 }
-        //               })
-        //           }
-        //         }
-        //         else {
-        //           console.log("has no child")
-        //           //fetch data by id
-        //         }
-        //       })
-        //     }
-        // })
+    
+  //   treeData.forEach((node:any)=>{
+  //     if(this.selectedAssetId === node.id){
+  //       if(node.children.length>0){
+  //         node.children?.map((child:any)=>{
+  //           if(child.parentId === this.selectedAssetId){
+  //             //getting 2 & 3
+  //               if(child.children.length > 0){ // asset 3
+  //                   child.children.map((lowestChild : any)=>{
+  //                     this.dataService.getDataById(lowestChild.id).subscribe(res=>{
+  //                         console.log(res)
+  //                         Object.entries(res.measurements).forEach(([dates,value])=>{
+  //                           this.datesVal.push(this.datePipe.transform(dates, 'MMM yy'));
+  //                           this.measurements1.push(value) // stored asset 4 values
+  //                          })
+  //                     })
+              
+  //                   })
+  //               }else if(child.children.length === 0){ // asset 2
+  //                 console.log(child.id)
+  //                 this.dataService.getDataById(child.id).subscribe(res=>{
+  //                   var temp : any[] = []
+  //                   Object.entries(res.measurements).forEach(([dates,value])=>{
+  //                     temp.push(value);
+  //                     this.measurements1.map((num, idx) => {
+  //                       this.sum.push(num + temp[idx]); //added asset 2 values to asset 4 values
+  //                    });
+  //                    })
+  //                    console.log(temp)
+                   
+  //                  console.log(this.sum)
+  //                 })
+  //               }
+        
+  //             }
+            
+  //           })
+  //       }
+  //       else if(node.children.length === 0){
+  //        this.dataService.getDataById(node.id).subscribe(res=>{
+  //         console.log(res);
+  //        })
+  //       }
+  //     }
+  // })
     }
 
   }
