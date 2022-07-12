@@ -1,0 +1,2780 @@
+{
+    "pipes": [],
+    "interfaces": [
+        {
+            "name": "AppState",
+            "id": "interface-AppState-1cb1e8baef67f0d94f89847641a968e6a0d7a8836534613869bc38d052188620d6319657526a2fa6b875a77736941259644ac6ae5c961a67a3200aa75db1e9b7",
+            "file": "src/app/app-state/app.state.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { State } from './asset-state/asset-state.reducer'\r\n\r\nexport interface AppState {\r\n    myState : State\r\n}",
+            "properties": [
+                {
+                    "name": "myState",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "State",
+                    "optional": false,
+                    "description": "",
+                    "line": 5
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": []
+        },
+        {
+            "name": "Asset",
+            "id": "interface-Asset-bdfaab4979b452a30dd50bf3f54da1f6f7077a6b8da563627dbc26a3e52fc5cefce37e4287fdfe8cbe309c0313a6ae0b46b1a7a38fd18b99e459ced73466b0ca",
+            "file": "src/app/assets/asset-data.model.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "export interface Asset {\r\n    assetId : string,\r\n    measurements : Object\r\n }",
+            "properties": [
+                {
+                    "name": "assetId",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 2
+                },
+                {
+                    "name": "measurements",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Object",
+                    "optional": false,
+                    "description": "",
+                    "line": 3
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": []
+        },
+        {
+            "name": "Asset",
+            "id": "interface-Asset-b58af162a9d8e93093854565c41e82d233e1f38fff3b5ac6857908309592c1342c073cff6972e31e6572cf0be941ff0a17f5f80f5c2aa4bf547fc05a71f244ea-1",
+            "file": "src/app/app-state/asset-state/asset-state.reducer.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { Action, createReducer,on } from \"@ngrx/store\"\r\n\r\nimport { chartData } from \"src/app/charts/chart-data.model\"\r\n// import  { loadAssetData, loadAssetDataSuccess, loadSelectedAsset, loadSelectedAssetChartData } from './asset-state.actions'\r\nimport { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';\r\nimport * as AssetActions from '../asset-state/asset-state.actions';\r\n\r\nexport interface Asset {\r\n    assetId : string,\r\n    measurements : Object\r\n}\r\n\r\nexport interface State extends EntityState<Asset>{\r\n    selectedAssetId : string | null;\r\n}\r\n\r\nexport const adapter: EntityAdapter<Asset> = createEntityAdapter<Asset>()\r\n\r\nexport const initialState: State = adapter.getInitialState({\r\n    // additional entity state properties\r\n    selectedAssetId: null,\r\n  });\r\n\r\n\r\nexport const assetReducer = createReducer(\r\n    initialState,\r\n    on(AssetActions.selectAsset, (state, { assetId }) => {\r\n      return { ...state, selectedAssetId: assetId };\r\n    }),\r\n    on(AssetActions.loadAssets, (state, { assets }) => {\r\n      return adapter.addMany( assets , { ...state, selectedAssetId: null });\r\n    })\r\n  );\r\n\r\n  export const getSelectAssetId = (state: State) => state.selectedAssetId;\r\n\r\n  const {\r\n    selectIds,\r\n    selectEntities,\r\n    selectAll,\r\n\r\n  } = adapter.getSelectors();\r\n   \r\n  export const selectAssetIds = selectIds;\r\n   \r\n  export const selectAssetEntities = selectEntities;\r\n   \r\n  export const selectAllAsstes = selectAll;\r\n   \r\n\r\n  export function reducer(state: State | undefined, action: Action) {\r\n    return assetReducer(state, action);\r\n  }\r\n\r\n// export const assetReducer = createReducer(\r\n//     initialState,\r\n//     on(loadAssetData, ((state, action)=>{\r\n//         console.log(\"called\")\r\n//         return {\r\n//             ...state\r\n//         }\r\n//     })),\r\n\r\n//     on(loadAssetDataSuccess, state=>({\r\n//             ...state,\r\n//             assets :state.assets        \r\n//     })),\r\n\r\n//     on(loadSelectedAsset, ((state, action)=>{\r\n//         return {\r\n//             ...state,\r\n//             assets : state.assets.filter((asset)=> { asset.assetId === action._p.selectedAsset }),\r\n//             selectedAsset : action._p.selectedAsset\r\n//         }\r\n//     })),\r\n\r\n//     on( loadSelectedAssetChartData, ((state, action)=>{\r\n//         return {\r\n//             ...state,\r\n//             chartsData : action._p.selectectedAssetChartData\r\n//         }\r\n//     }))\r\n// )",
+            "properties": [
+                {
+                    "name": "assetId",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 10
+                },
+                {
+                    "name": "measurements",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Object",
+                    "optional": false,
+                    "description": "",
+                    "line": 11
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": [],
+            "isDuplicate": true,
+            "duplicateId": 1,
+            "duplicateName": "Asset-1"
+        },
+        {
+            "name": "assetNode",
+            "id": "interface-assetNode-c30ea8d1457829f453003b4f8ff90a2786fb71b93c49b1c1d1b2be5b71fbee7b2cc79d7bd607da6ff8cf3ca93e9720269167b8ff5022dcd31529d857cc6d4334",
+            "file": "src/app/assets/asset.component.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { AnimateTimings } from '@angular/animations';\nimport { NestedTreeControl } from '@angular/cdk/tree';\nimport { DatePipe } from '@angular/common';\nimport { Component, OnInit, ViewChild } from '@angular/core';\nimport { MatTreeNestedDataSource } from '@angular/material/tree';\nimport { Store } from '@ngrx/store';\nimport { BaseChartDirective } from 'ng2-charts';\nimport { map } from 'rxjs/operators';\n\n// import { loadAssetData, loadAssetDataSuccess, loadSelectedAsset } from '../app-state/asset-state/asset-state.actions';\n// import { selectedAssetData } from '../app-state/asset-state/asset-state.selectors';\n\nimport { GetAssetDataService } from './get-asset-data.service';\n\n// import { Color, Label } from 'ng2-charts';\n\ninterface assetNode{\n  name: string;\n  id: number,\n  children? : assetNode[]\n}\n\nconst treeData : assetNode[] = [\n  {\n    name : 'Asset 0',\n    id: 0,\n    children : []\n  },\n  {\n    name : 'Asset 1',\n    id: 1,\n    children : [\n      {name : 'Asset 2',id:2,children: []},\n      {name:'Asset 3',id:3,children : [\n        {name : 'Asset 4', id:4,children : []}\n      ]}\n    ]\n  }\n\n]\n@Component({\n  selector: 'app-asset',\n  templateUrl: './asset.component.html',\n  styleUrls: ['./asset.component.css']\n})\nexport class AssetComponent implements OnInit {\n\n  showFiller = true;\n  selectedAssetId = 5;\n  selectedAsset! : Object\n  activeNode = '';\n  title = 'Front End Assignment';\n\n  results : any;\n  dates : any[] = [];\n  dataSet : any;\n\n  chartData: any;\n  chartLabels : any;\n  chartOptions : any;\n\n\n  @ViewChild(BaseChartDirective)\n  chart!: BaseChartDirective; \n\n  treeControl = new NestedTreeControl<assetNode>(node => {\n    return node.children;\n  });\n  dataSource = new MatTreeNestedDataSource<assetNode>();\n\n  constructor(private dataService : GetAssetDataService,\n    private store : Store,\n    private datePipe : DatePipe){\n    this.dataSource.data = treeData\n\n    //  const assetData$ = this.store.select(loadAssetData)\n  }\n\n\n  ngOnInit(): void {\n\n    // this.store.select(selectCurrentAsset).subscribe((asset)=>{\n    //     console.log(asset)\n    // })  \n    // this.store.dispatch(loadSelectedAsset({selectedAsset : this.selectedAsset}))\n    // this.store.dispatch(loadAssetDataSuccess());\n    // this.dataService.getData().subscribe(res=>{\n    //     this.results = {\n    //       data : res\n    //     };\n \n    //   this.dataSet = Object.entries(this.results.data).map((val:any)=>{ return val[1].measurements})\n    //    Object.keys(this.dataSet[1]).forEach((element :any) => {\n    //        this.dates.push(this.datePipe.transform(element, 'MMM yy'))\n    //   });\n\n    //    this.chartData = [\n    //     {\n    //       data : Object.values(this.dataSet[1]),// measurement values\n    //       label : 'Asset 4', //selected asset \n    //       fill : false,\n    //       tension: 0,\n    //       borderColor: '#4588d4'\n    //     }\n    //   ]; \n    \n    //   this.chartLabels = this.dates // measurements keys\n    \n    //   this.chartOptions = {\n    //     responsive: true\n    //   };\n    // })\n\n  }\n\n  hasChild = (_:number, node: assetNode)=> !!node.children && node.children.length>0;\n \n  selectedNode(node: any){\n    console.log(node)\n    this.selectedAsset = node.id\n    this.selectedAssetId = node.id;\n    }\n\n  }\n  \n\n\n",
+            "properties": [
+                {
+                    "name": "children",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "assetNode[]",
+                    "optional": true,
+                    "description": "",
+                    "line": 20
+                },
+                {
+                    "name": "id",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 19
+                },
+                {
+                    "name": "name",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 18
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": []
+        },
+        {
+            "name": "chartData",
+            "id": "interface-chartData-6309e7ba6500d347253e3ad5248812a166caab070743476e460cd5b1872c97d548e93da55fd575a71263461d7969ebd7f55340c8d819e00885a2f7409fa8485e",
+            "file": "src/app/charts/chart-data.model.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "export interface chartData {\r\n   assetId : string,\r\n   data : [],\r\n   labels : [],\r\n   options : []\r\n}",
+            "properties": [
+                {
+                    "name": "assetId",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 2
+                },
+                {
+                    "name": "data",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 3
+                },
+                {
+                    "name": "labels",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 4
+                },
+                {
+                    "name": "options",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 5
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": []
+        },
+        {
+            "name": "State",
+            "id": "interface-State-09661b2cf21558bc2cce3a661a06bd92a1637978747396bdf1c04ab757d458a18f29387dcc926d6b8bad8b93707f8c0dffcb3c3520d55112321b3a31f1140f59",
+            "file": "src/app/app-state/asset-state/asset-state.selectors.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { createSelector, createFeatureSelector, ActionReducerMap, } from \"@ngrx/store\";\r\nimport * as fromAsset from './asset-state.reducer'\r\n\r\nexport interface State {\r\n    assets : fromAsset.State;\r\n  }\r\n   \r\n  export const reducers: ActionReducerMap<State> = {\r\n    assets: fromAsset.reducer,\r\n  };\r\n\r\n  export const selectAssetState = createFeatureSelector<fromAsset.State>('assets');\r\n\r\n  export const selectCurrentAssetId = createSelector(\r\n    selectAssetState,\r\n    fromAsset.getSelectAssetId\r\n  )\r\n\r\n  export const selectAssetEntities = createSelector(\r\n    selectAssetState,\r\n    fromAsset.selectAssetEntities\r\n  );\r\n  export const selectAllAssets = createSelector(\r\n    selectAssetState,\r\n    fromAsset.selectAllAsstes\r\n  );\r\n\r\n  export const selectCurrentAsset = createSelector(\r\n    selectAssetEntities,\r\n    selectCurrentAssetId,\r\n    (assetEntities, assetId) => assetId && assetEntities[assetId]\r\n  );\r\n\r\n\r\n\r\n// import { AppState } from \"../app.state\";\r\n// import { myState } from \"./asset-state.reducer\";\r\n\r\n// export interface selectedAsset {\r\n//     assetId : number;\r\n// }\r\n\r\n// export interface allAssetsData {\r\n//     assetId : selectedAsset,\r\n//     measurement : object\r\n// }\r\n\r\n// export interface AppState {\r\n//     selectedAsset : selectedAsset,\r\n//     allAssetsData : allAssetsData[]\r\n// }\r\n\r\n// export const selectedAsset = (state: AppState) => state.selectedAsset;\r\n// export const selectAllAssetData = (state: AppState) => state.allAssetsData;\r\n\r\n// export const selectedAssetData = createSelector(\r\n//     selectedAsset,\r\n//     selectAllAssetData,\r\n//     (selectedAsset: selectedAsset, selectAllAssetData: allAssetsData[]) => {\r\n//       if (selectedAsset && selectAllAssetData) {\r\n//         return selectAllAssetData.filter((asset: allAssetsData) => {\r\n//             console.log(asset.assetId)\r\n//             console.log(selectedAsset.assetId)\r\n//             // asset.assetId == selectedAsset.assetId\r\n//         });\r\n//       } else {\r\n//         return selectAllAssetData;\r\n//       }\r\n//     }\r\n//   );\r\n\r\n// export const loadAssetData = (state : AppState) => state.myState.assets\r\n// export const selectAssetData = createSelector(\r\n//     loadAssetData,\r\n//     (state :  myState) => state.assets\r\n// )\r\n\r\n// export const loadChartData = (state : AppState) => state.myState.chartsData",
+            "properties": [
+                {
+                    "name": "assets",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "fromAsset.State",
+                    "optional": false,
+                    "description": "",
+                    "line": 5
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": []
+        },
+        {
+            "name": "State",
+            "id": "interface-State-b58af162a9d8e93093854565c41e82d233e1f38fff3b5ac6857908309592c1342c073cff6972e31e6572cf0be941ff0a17f5f80f5c2aa4bf547fc05a71f244ea-1",
+            "file": "src/app/app-state/asset-state/asset-state.reducer.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { Action, createReducer,on } from \"@ngrx/store\"\r\n\r\nimport { chartData } from \"src/app/charts/chart-data.model\"\r\n// import  { loadAssetData, loadAssetDataSuccess, loadSelectedAsset, loadSelectedAssetChartData } from './asset-state.actions'\r\nimport { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';\r\nimport * as AssetActions from '../asset-state/asset-state.actions';\r\n\r\nexport interface Asset {\r\n    assetId : string,\r\n    measurements : Object\r\n}\r\n\r\nexport interface State extends EntityState<Asset>{\r\n    selectedAssetId : string | null;\r\n}\r\n\r\nexport const adapter: EntityAdapter<Asset> = createEntityAdapter<Asset>()\r\n\r\nexport const initialState: State = adapter.getInitialState({\r\n    // additional entity state properties\r\n    selectedAssetId: null,\r\n  });\r\n\r\n\r\nexport const assetReducer = createReducer(\r\n    initialState,\r\n    on(AssetActions.selectAsset, (state, { assetId }) => {\r\n      return { ...state, selectedAssetId: assetId };\r\n    }),\r\n    on(AssetActions.loadAssets, (state, { assets }) => {\r\n      return adapter.addMany( assets , { ...state, selectedAssetId: null });\r\n    })\r\n  );\r\n\r\n  export const getSelectAssetId = (state: State) => state.selectedAssetId;\r\n\r\n  const {\r\n    selectIds,\r\n    selectEntities,\r\n    selectAll,\r\n\r\n  } = adapter.getSelectors();\r\n   \r\n  export const selectAssetIds = selectIds;\r\n   \r\n  export const selectAssetEntities = selectEntities;\r\n   \r\n  export const selectAllAsstes = selectAll;\r\n   \r\n\r\n  export function reducer(state: State | undefined, action: Action) {\r\n    return assetReducer(state, action);\r\n  }\r\n\r\n// export const assetReducer = createReducer(\r\n//     initialState,\r\n//     on(loadAssetData, ((state, action)=>{\r\n//         console.log(\"called\")\r\n//         return {\r\n//             ...state\r\n//         }\r\n//     })),\r\n\r\n//     on(loadAssetDataSuccess, state=>({\r\n//             ...state,\r\n//             assets :state.assets        \r\n//     })),\r\n\r\n//     on(loadSelectedAsset, ((state, action)=>{\r\n//         return {\r\n//             ...state,\r\n//             assets : state.assets.filter((asset)=> { asset.assetId === action._p.selectedAsset }),\r\n//             selectedAsset : action._p.selectedAsset\r\n//         }\r\n//     })),\r\n\r\n//     on( loadSelectedAssetChartData, ((state, action)=>{\r\n//         return {\r\n//             ...state,\r\n//             chartsData : action._p.selectectedAssetChartData\r\n//         }\r\n//     }))\r\n// )",
+            "properties": [
+                {
+                    "name": "selectedAssetId",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string | null",
+                    "optional": false,
+                    "description": "",
+                    "line": 15
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": [],
+            "extends": "EntityState",
+            "isDuplicate": true,
+            "duplicateId": 1,
+            "duplicateName": "State-1"
+        },
+        {
+            "name": "User",
+            "id": "interface-User-9c7e5f1bbbab702cb032307d130876cb68969b0cd4eedef32a0c8cad8081a54e5f8f577ed6ad4539c1b99a1d246cb34031d198c2ea8eba440e64e91b14f01fdc",
+            "file": "src/stories/User.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "export interface User {}\n",
+            "properties": [],
+            "indexSignatures": [],
+            "methods": []
+        }
+    ],
+    "injectables": [
+        {
+            "name": "AssetEffects",
+            "id": "injectable-AssetEffects-96089b69f8d4175ebc04222fbb37e7fb8c459d35dc29c99333c4e1fbeb6f5236a8fc5f7204289570585bd5b93571394495e988ad81ca7abd44b588538af10337",
+            "file": "src/app/app-state/asset-state/asset-state.effects.ts",
+            "properties": [
+                {
+                    "name": "loadAssetData$",
+                    "defaultValue": "createEffect(()=> \r\n     this.actions$.pipe(\r\n        ofType(loadAssets),\r\n        withLatestFrom(this.store.select(selectAllAssets)),\r\n        switchMap(() => from(this.dataService.getData()).pipe(\r\n            // map((asset) => loadAsstesSuccess({ assets: asset })),\r\n          map((asset)=> ({type : '[asset api] success', payload : asset}))\r\n        )\r\n    \r\n     ),)\r\n)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 26
+                }
+            ],
+            "methods": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "description": "",
+            "rawdescription": "\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { Actions, createEffect, ofType } from '@ngrx/effects';\r\n// import {\r\n// loadAssetData,\r\n//     loadAssetDataSuccess,\r\n// loadSelectedAsset,\r\n// loadSelectedAssetChartData\r\n// } from './asset-state.actions';\r\nimport { GetAssetDataService } from '../../assets/get-asset-data.service';\r\nimport { of, from, Observable } from 'rxjs';\r\nimport { switchMap, map, catchError, withLatestFrom, switchAll, mergeMap } from 'rxjs/operators';\r\nimport { Store } from '@ngrx/store';\r\nimport { AppState } from '../app.state';\r\nimport { assetReducer } from './asset-state.reducer';\r\nimport { loadAssets, selectAsset,loadAsstesSuccess,loadSelectedAssetChartData } from './asset-state.actions'\r\nimport { selectAllAssets, selectCurrentAsset } from './asset-state.selectors';\r\n\r\n@Injectable()\r\nexport class AssetEffects {\r\n  constructor(\r\n    private actions$: Actions,\r\n    private store: Store<AppState>,\r\n    private dataService: GetAssetDataService\r\n  ) {}\r\n\r\nloadAssetData$ = createEffect(()=> \r\n     this.actions$.pipe(\r\n        ofType(loadAssets),\r\n        withLatestFrom(this.store.select(selectAllAssets)),\r\n        switchMap(() => from(this.dataService.getData()).pipe(\r\n            // map((asset) => loadAsstesSuccess({ assets: asset })),\r\n          map((asset)=> ({type : '[asset api] success', payload : asset}))\r\n        )\r\n    \r\n     ),)\r\n);\r\n\r\n// getchartData$ = createEffect(()=>\r\n//     this.actions$.pipe(\r\n//         ofType(loadSelectedAssetChartData),\r\n//         withLatestFrom(this.store.select(selectCurrentAsset)),\r\n//          switchMap(()=> from())\r\n//     )\r\n// )\r\n\r\n}\r\n",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "actions$",
+                        "type": "Actions",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "store",
+                        "type": "Store<AppState>",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "dataService",
+                        "type": "GetAssetDataService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 19,
+                "jsdoctags": [
+                    {
+                        "name": "actions$",
+                        "type": "Actions",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "store",
+                        "type": "Store<AppState>",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "dataService",
+                        "type": "GetAssetDataService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "type": "injectable"
+        },
+        {
+            "name": "GetAssetDataService",
+            "id": "injectable-GetAssetDataService-93078ec556465035b1f1fdfad69e0f18b48fef49f7af37196bff1325ec218b539507cfa299385a387fd1a2a9f63e66ae041b32c3287f5f8f8eb404864edca6fb",
+            "file": "src/app/assets/get-asset-data.service.ts",
+            "properties": [
+                {
+                    "name": "baseUrl",
+                    "defaultValue": "\"http://localhost:3000/measurement\"",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 13
+                }
+            ],
+            "methods": [
+                {
+                    "name": "getData",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "Observable<any>",
+                    "typeParameters": [],
+                    "line": 15,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "getDataById",
+                    "args": [
+                        {
+                            "name": "id",
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "Observable<any>",
+                    "typeParameters": [],
+                    "line": 19,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "id",
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "description": "",
+            "rawdescription": "\n",
+            "sourceCode": "import { JsonPipe } from '@angular/common';\nimport { HttpClient } from '@angular/common/http';\nimport { Injectable } from '@angular/core';\nimport { map, Observable } from 'rxjs';\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class GetAssetDataService {\n\n  constructor(private http : HttpClient) { }\n\n   baseUrl = \"http://localhost:3000/measurement\"\n\n  getData():Observable<any>{\n    return this.http.get(this.baseUrl)\n  }\n\n  getDataById(id:number):Observable<any>{\n    return this.http.get(this.baseUrl + '/' + id)\n  }\n\n}\n",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "http",
+                        "type": "HttpClient",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 9,
+                "jsdoctags": [
+                    {
+                        "name": "http",
+                        "type": "HttpClient",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "type": "injectable"
+        }
+    ],
+    "guards": [],
+    "interceptors": [],
+    "classes": [],
+    "directives": [],
+    "components": [
+        {
+            "name": "AppComponent",
+            "id": "component-AppComponent-ef745acbca96ef6286a7af8842dcab8e5b4b33e231f1e4e1b990b51f1d3565396f05a34fce5538b5d6e30deca1de663000cf73e64be542ea3d1a01421979c54d",
+            "file": "src/app/app.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-root",
+            "styleUrls": [
+                "./app.component.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./app.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "title",
+                    "defaultValue": "\"data-charts\"",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 12
+                }
+            ],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { NestedTreeControl } from '@angular/cdk/tree';\nimport { Component } from '@angular/core';\nimport { MatTreeNestedDataSource } from '@angular/material/tree';\n\n\n@Component({\n  selector: 'app-root',\n  templateUrl: './app.component.html',\n  styleUrls: ['./app.component.css']\n})\nexport class AppComponent {\n  title=\"data-charts\"\n}\n\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./app.component.css"
+                }
+            ],
+            "stylesData": "",
+            "templateData": "<router-outlet></router-outlet>"
+        },
+        {
+            "name": "AssetComponent",
+            "id": "component-AssetComponent-c30ea8d1457829f453003b4f8ff90a2786fb71b93c49b1c1d1b2be5b71fbee7b2cc79d7bd607da6ff8cf3ca93e9720269167b8ff5022dcd31529d857cc6d4334",
+            "file": "src/app/assets/asset.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-asset",
+            "styleUrls": [
+                "./asset.component.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./asset.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "activeNode",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 51
+                },
+                {
+                    "name": "chart",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "BaseChartDirective",
+                    "optional": false,
+                    "description": "",
+                    "line": 64,
+                    "decorators": [
+                        {
+                            "name": "ViewChild",
+                            "stringifiedArguments": "BaseChartDirective"
+                        }
+                    ]
+                },
+                {
+                    "name": "chartData",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 58
+                },
+                {
+                    "name": "chartLabels",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 59
+                },
+                {
+                    "name": "chartOptions",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 60
+                },
+                {
+                    "name": "dataSet",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 56
+                },
+                {
+                    "name": "dataSource",
+                    "defaultValue": "new MatTreeNestedDataSource<assetNode>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 69
+                },
+                {
+                    "name": "dates",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 55
+                },
+                {
+                    "name": "hasChild",
+                    "defaultValue": "() => {...}",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 116
+                },
+                {
+                    "name": "results",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 54
+                },
+                {
+                    "name": "selectedAsset",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Object",
+                    "optional": false,
+                    "description": "",
+                    "line": 50
+                },
+                {
+                    "name": "selectedAssetId",
+                    "defaultValue": "5",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 49
+                },
+                {
+                    "name": "showFiller",
+                    "defaultValue": "true",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 48
+                },
+                {
+                    "name": "title",
+                    "defaultValue": "'Front End Assignment'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 52
+                },
+                {
+                    "name": "treeControl",
+                    "defaultValue": "new NestedTreeControl<assetNode>(node => {\n    return node.children;\n  })",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 66
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 80,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "selectedNode",
+                    "args": [
+                        {
+                            "name": "node",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 118,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "node",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { AnimateTimings } from '@angular/animations';\nimport { NestedTreeControl } from '@angular/cdk/tree';\nimport { DatePipe } from '@angular/common';\nimport { Component, OnInit, ViewChild } from '@angular/core';\nimport { MatTreeNestedDataSource } from '@angular/material/tree';\nimport { Store } from '@ngrx/store';\nimport { BaseChartDirective } from 'ng2-charts';\nimport { map } from 'rxjs/operators';\n\n// import { loadAssetData, loadAssetDataSuccess, loadSelectedAsset } from '../app-state/asset-state/asset-state.actions';\n// import { selectedAssetData } from '../app-state/asset-state/asset-state.selectors';\n\nimport { GetAssetDataService } from './get-asset-data.service';\n\n// import { Color, Label } from 'ng2-charts';\n\ninterface assetNode{\n  name: string;\n  id: number,\n  children? : assetNode[]\n}\n\nconst treeData : assetNode[] = [\n  {\n    name : 'Asset 0',\n    id: 0,\n    children : []\n  },\n  {\n    name : 'Asset 1',\n    id: 1,\n    children : [\n      {name : 'Asset 2',id:2,children: []},\n      {name:'Asset 3',id:3,children : [\n        {name : 'Asset 4', id:4,children : []}\n      ]}\n    ]\n  }\n\n]\n@Component({\n  selector: 'app-asset',\n  templateUrl: './asset.component.html',\n  styleUrls: ['./asset.component.css']\n})\nexport class AssetComponent implements OnInit {\n\n  showFiller = true;\n  selectedAssetId = 5;\n  selectedAsset! : Object\n  activeNode = '';\n  title = 'Front End Assignment';\n\n  results : any;\n  dates : any[] = [];\n  dataSet : any;\n\n  chartData: any;\n  chartLabels : any;\n  chartOptions : any;\n\n\n  @ViewChild(BaseChartDirective)\n  chart!: BaseChartDirective; \n\n  treeControl = new NestedTreeControl<assetNode>(node => {\n    return node.children;\n  });\n  dataSource = new MatTreeNestedDataSource<assetNode>();\n\n  constructor(private dataService : GetAssetDataService,\n    private store : Store,\n    private datePipe : DatePipe){\n    this.dataSource.data = treeData\n\n    //  const assetData$ = this.store.select(loadAssetData)\n  }\n\n\n  ngOnInit(): void {\n\n    // this.store.select(selectCurrentAsset).subscribe((asset)=>{\n    //     console.log(asset)\n    // })  \n    // this.store.dispatch(loadSelectedAsset({selectedAsset : this.selectedAsset}))\n    // this.store.dispatch(loadAssetDataSuccess());\n    // this.dataService.getData().subscribe(res=>{\n    //     this.results = {\n    //       data : res\n    //     };\n \n    //   this.dataSet = Object.entries(this.results.data).map((val:any)=>{ return val[1].measurements})\n    //    Object.keys(this.dataSet[1]).forEach((element :any) => {\n    //        this.dates.push(this.datePipe.transform(element, 'MMM yy'))\n    //   });\n\n    //    this.chartData = [\n    //     {\n    //       data : Object.values(this.dataSet[1]),// measurement values\n    //       label : 'Asset 4', //selected asset \n    //       fill : false,\n    //       tension: 0,\n    //       borderColor: '#4588d4'\n    //     }\n    //   ]; \n    \n    //   this.chartLabels = this.dates // measurements keys\n    \n    //   this.chartOptions = {\n    //     responsive: true\n    //   };\n    // })\n\n  }\n\n  hasChild = (_:number, node: assetNode)=> !!node.children && node.children.length>0;\n \n  selectedNode(node: any){\n    console.log(node)\n    this.selectedAsset = node.id\n    this.selectedAssetId = node.id;\n    }\n\n  }\n  \n\n\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".example-container {\r\n    height: calc(100vh - 65px);\r\n  }\r\n  \r\n  .example-sidenav-content {\r\n    height: calc(100vh - 98px);\r\n    border-radius: 10px;\r\n    margin: 16px;\r\n    margin-left: 32px;\r\n\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n\r\n    font-size: 2rem;\r\n    color: lightgray;\r\n  }\r\n  \r\n  .example-sidenav {\r\n    margin: 16px;\r\n    width: 200px;\r\n    border-right: none;\r\n    background: #002b5c;\r\n    color: white;\r\n    border-radius: 10px;\r\n    padding: 16px;\r\n    text-align: center;\r\n  }\r\n\r\n\r\nmat-toolbar {\r\n    background: #004a9f;\r\n    color: white;\r\n}\r\n\r\n.example-tree-invisible {\r\n    display: none;\r\n  }\r\n\r\n  .text-white{\r\n    color:white\r\n  }\r\n\r\n  .text-padding{\r\n    padding-left: 40px;\r\n    color:white;\r\n    \r\n  }\r\n\r\n  .example-tree{\r\n    background: #002b5c;\r\n  }\r\n  \r\n  .example-tree ul,\r\n  .example-tree li {\r\n    margin-top: 0;\r\n    margin-bottom: 0;\r\n    list-style-type: none;\r\n  }\r\n\r\n  \r\n  /*\r\n   * This padding sets alignment of the nested nodes.\r\n   */\r\n  .example-tree .mat-nested-tree-node div[role=group]{\r\n    padding-left: 20px;\r\n  }\r\n\r\n  \r\n\r\n  /*\r\n   * Padding for leaf nodes.\r\n   * Leaf nodes need to have padding so as to align with other non-leaf nodes\r\n   * under the same parent.\r\n   */\r\n  .example-tree div[role=group] > .mat-tree-node {\r\n    padding-left: 40px;\r\n    \r\n  }\r\n\r\n.node-custom-styles{\r\n      cursor : pointer;\r\n}\r\n.node-custom-styles :hover{\r\n  color : rgb(216, 215, 215)\r\n}",
+                    "styleUrl": "./asset.component.css"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "dataService",
+                        "type": "GetAssetDataService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "store",
+                        "type": "Store",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "datePipe",
+                        "type": "DatePipe",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 69,
+                "jsdoctags": [
+                    {
+                        "name": "dataService",
+                        "type": "GetAssetDataService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "store",
+                        "type": "Store",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "datePipe",
+                        "type": "DatePipe",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<mat-toolbar>\n    {{title}}\n  </mat-toolbar>\n  <mat-drawer-container class=\"example-container\" autosize>\n    <mat-drawer #drawer class=\"example-sidenav\" mode=\"side\" opened>\n        <mat-tree [dataSource]=\"dataSource\" [treeControl]=\"treeControl\" class=\"example-tree\">\n     \n          <mat-tree-node class=\"node-custom-styles\" *matTreeNodeDef=\"let node\" [ngClass]=\"node.name==='Asset 0' ? 'text-padding': 'text-white'\" (click)=\"selectedNode(node)\">\n            <p> {{node.name}} </p>\n          </mat-tree-node>\n       \n          <mat-nested-tree-node  *matTreeNodeDef=\"let node; when : hasChild\">\n             <div class=\"mat-tree-node node-custom-styles\" (click)=\"selectedNode(node)\" matTreeNodeToggle>\n                <button mat-icon-button matTreeNodeToggle (click)=\"selectedNode(node)\" \n                [attr.aria-label]=\"'Toggle ' + node.name\">\n                <mat-icon class=\"mat-icon-rtl-mirror text-white\">\n                  {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}\n                </mat-icon>\n              </button>\n              <p class=\"text-white\"> {{node.name}}</p>\n              </div>\n            <div [class.example-tree-invisible]=\"!treeControl.isExpanded(node)\"\n            role=\"group\">\n            <ng-container matTreeNodeOutlet></ng-container>\n            </div>\n          </mat-nested-tree-node>\n        </mat-tree>\n    </mat-drawer>\n  \n    <div class=\"example-sidenav-content mat-elevation-z8\">\n     \n      <div  *ngIf=\"selectedAssetId == 5\">\n         No Asset Selected \n      </div>\n      <div *ngIf=\"selectedAssetId < 5\" style=\"width:60%;\"> \n          <app-charts [selectedAsset]=\"selectedAsset\"></app-charts>\n      </div>\n   \n    </div>  \n  \n  </mat-drawer-container>"
+        },
+        {
+            "name": "ButtonComponent",
+            "id": "component-ButtonComponent-4ef205c97a334c309aa4001c8ab4a6d9571dcae18d0e85aaf0d367467ab5d3a9f13ab3573726f1fcb409bc9b49894dadfb80b1bbe1b6ba7041455ad9d4922004",
+            "file": "src/stories/button.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "storybook-button",
+            "styleUrls": [
+                "./button.css"
+            ],
+            "styles": [],
+            "template": "<button   type=\"button\"\n   (click)=\"onClick.emit($event)\"\n   [ngClass]=\"classes\"\n   [ngStyle]=\"{ 'background-color': backgroundColor }\"\n >\n   {{ label }}\n </button>",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "backgroundColor",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nWhat background color to use\n",
+                    "description": "<p>What background color to use</p>\n",
+                    "line": 26,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "label",
+                    "defaultValue": "'Button'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "pos": 711,
+                            "end": 724,
+                            "flags": 4227072,
+                            "modifierFlagsCache": 0,
+                            "transformFlags": 0,
+                            "kind": 325,
+                            "tagName": {
+                                "pos": 712,
+                                "end": 720,
+                                "flags": 4227072,
+                                "modifierFlagsCache": 0,
+                                "transformFlags": 0,
+                                "kind": 79,
+                                "escapedText": "required"
+                            },
+                            "comment": ""
+                        }
+                    ],
+                    "rawdescription": "\n\nButton contents\n\n",
+                    "description": "<p>Button contents</p>\n",
+                    "line": 40,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "primary",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nIs this the principal call to action on the page?\n",
+                    "description": "<p>Is this the principal call to action on the page?</p>\n",
+                    "line": 20,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "size",
+                    "defaultValue": "'medium'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nHow large should the button be?\n",
+                    "description": "<p>How large should the button be?</p>\n",
+                    "line": 32,
+                    "type": "\"small\" | \"medium\" | \"large\"",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "onClick",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nOptional click handler\n",
+                    "description": "<p>Optional click handler</p>\n",
+                    "line": 46,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, Input, Output, EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'storybook-button',\n  template: ` <button\n    type=\"button\"\n    (click)=\"onClick.emit($event)\"\n    [ngClass]=\"classes\"\n    [ngStyle]=\"{ 'background-color': backgroundColor }\"\n  >\n    {{ label }}\n  </button>`,\n  styleUrls: ['./button.css'],\n})\nexport default class ButtonComponent {\n  /**\n   * Is this the principal call to action on the page?\n   */\n  @Input()\n  primary = false;\n\n  /**\n   * What background color to use\n   */\n  @Input()\n  backgroundColor?: string;\n\n  /**\n   * How large should the button be?\n   */\n  @Input()\n  size: 'small' | 'medium' | 'large' = 'medium';\n\n  /**\n   * Button contents\n   *\n   * @required\n   */\n  @Input()\n  label = 'Button';\n\n  /**\n   * Optional click handler\n   */\n  @Output()\n  onClick = new EventEmitter<Event>();\n\n  public get classes(): string[] {\n    const mode = this.primary ? 'storybook-button--primary' : 'storybook-button--secondary';\n\n    return ['storybook-button', `storybook-button--${this.size}`, mode];\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".storybook-button {\n  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\n  font-weight: 700;\n  border: 0;\n  border-radius: 3em;\n  cursor: pointer;\n  display: inline-block;\n  line-height: 1;\n}\n.storybook-button--primary {\n  color: white;\n  background-color: #1ea7fd;\n}\n.storybook-button--secondary {\n  color: #333;\n  background-color: transparent;\n  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;\n}\n.storybook-button--small {\n  font-size: 12px;\n  padding: 10px 16px;\n}\n.storybook-button--medium {\n  font-size: 14px;\n  padding: 11px 20px;\n}\n.storybook-button--large {\n  font-size: 16px;\n  padding: 12px 24px;\n}\n",
+                    "styleUrl": "./button.css"
+                }
+            ],
+            "stylesData": "",
+            "accessors": {
+                "classes": {
+                    "name": "classes",
+                    "getSignature": {
+                        "name": "classes",
+                        "type": "[]",
+                        "returnType": "string[]",
+                        "line": 48
+                    }
+                }
+            }
+        },
+        {
+            "name": "ChartsComponent",
+            "id": "component-ChartsComponent-bad5f4985eb74415744517fc3faf6a9af60a53af83cd1a36c8bcf9934eeae3d057a05f5ee3f2bbcac65a330ca0f8f20b0b1e82deaa6506bda2ee01907705ba9c",
+            "file": "src/app/charts/charts.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-charts",
+            "styleUrls": [
+                "./charts.component.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./charts.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "selectedAsset",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 16,
+                    "type": "Object | undefined",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "assetSelected",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 15
+                },
+                {
+                    "name": "chart",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "BaseChartDirective",
+                    "optional": false,
+                    "description": "",
+                    "line": 31,
+                    "decorators": [
+                        {
+                            "name": "ViewChild",
+                            "stringifiedArguments": "BaseChartDirective"
+                        }
+                    ]
+                },
+                {
+                    "name": "chartData",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 19
+                },
+                {
+                    "name": "chartLabels",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 18
+                },
+                {
+                    "name": "chartOptions",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 20
+                },
+                {
+                    "name": "dates",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 21
+                },
+                {
+                    "name": "dates2",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 24
+                },
+                {
+                    "name": "dates3",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 27
+                },
+                {
+                    "name": "measurements",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 22
+                },
+                {
+                    "name": "measurements2",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 25
+                },
+                {
+                    "name": "measurements3",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 28
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "getChartData",
+                    "args": [
+                        {
+                            "name": "labels",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "dataset",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "selected",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 111,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "labels",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "dataset",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "selected",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "ngOnChanges",
+                    "args": [
+                        {
+                            "name": "changes",
+                            "type": "SimpleChanges",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 42,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "changes",
+                            "type": "SimpleChanges",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 38,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "setChartData",
+                    "args": [
+                        {
+                            "name": "selected",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 57,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "selected",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { DatePipe } from '@angular/common';\nimport { Component, Input, OnInit, SimpleChange, SimpleChanges, ViewChild } from '@angular/core';\nimport { filter, find, map } from 'rxjs';\nimport { GetAssetDataService } from '../assets/get-asset-data.service';\nimport { BaseChartDirective } from 'ng2-charts';\nimport { Chart } from 'chart.js';\n\n@Component({\n  selector: 'app-charts',\n  templateUrl: './charts.component.html',\n  styleUrls: ['./charts.component.css']\n})\nexport class ChartsComponent implements OnInit {\n\n  assetSelected : any;\n  @Input('selectedAsset') asset : Object | undefined;\n\n   chartLabels :any [] = [];\n   chartData : any;\n   chartOptions :any;\n  dates : any[] = [];\n  measurements : any[] = []\n\n  dates2 : any[] = [];\n  measurements2 : any[] =[];\n\n  dates3 : any[] = [];\n  measurements3 : any[] =[];\n\n  @ViewChild(BaseChartDirective)\n  chart!: BaseChartDirective; \n\n  constructor(\n    private httpService : GetAssetDataService,\n    private datePipe : DatePipe\n  ) { }\n\n  ngOnInit(): void {\n  \n  }\n\n  ngOnChanges(changes : SimpleChanges){\n    for(let property in changes){\n      console.log(\"asset selected : \"+ changes[property].currentValue);\n      this.assetSelected = changes[property].currentValue\n      if (changes[property].currentValue === undefined){\n        console.log(\"no asset selected\")\n      }\n      else{\n        \n        this.setChartData(this.assetSelected)\n      }\n    }\n  }\n\n\n  setChartData(selected:any){\n    \n    this.dates = []\n    this.measurements = []\n   \n    this.httpService.getDataById(selected).subscribe(res=>{\n     \n      Object.entries(res.measurements).forEach(([dates,value])=>{\n         this.dates.push(this.datePipe.transform(dates, 'MMM yy'));\n         this.measurements.push(value)\n      })  \n\n      this.getChartData(this.dates, this.measurements,selected)\n     },(error)=>{\n           \n              this.httpService.getData().subscribe(res=>{\n\n               Object.entries(res[1].measurements).forEach(([dates,value])=>{\n                this.dates.push(this.datePipe.transform(dates, 'MMM yy'));\n                this.measurements.push(value)\n               })\n\n                    if(selected == 3){\n                                Object.entries(res[2].measurements).forEach(([dates,value])=>{\n                                  this.dates3.push(this.datePipe.transform(dates, 'MMM yy'));\n                                  this.measurements3.push(value)\n                                        this.getChartData(this.dates3, this.measurements3, selected)\n                                      \n\n                                })\n                  }\n                  Object.entries(res[2].measurements).forEach(([dates,value])=>{\n                    this.dates2.push(this.datePipe.transform(dates, 'MMM yy'));\n                    this.measurements3.push(value)\n                    this.measurements2.push(value)\n           \n                  \n                    if(selected == 1){\n                      var sum : any [] = []\n                       this.measurements.map((num, idx) => {\n                         sum.push (num + this.measurements2[idx]);\n                      });\n                     this.getChartData(this.dates,sum,selected)\n                    }\n                   \n                 })  \n                })\n       \n     }) \n  \n  \n    }\n\n\n    getChartData(labels:any, dataset:any,selected :any){\n      this.chartLabels = labels\n        \n      this.chartData = [\n        {\n                data :dataset,// measurement values\n                label : 'Asset '+selected, //selected asset \n                fill : false,\n                tension: 0,\n                borderColor: '#4588d4' \n        }\n      ]\n\n      this.chartOptions = {\n        responsive : true\n      }\n    }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./charts.component.css"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "httpService",
+                        "type": "GetAssetDataService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "datePipe",
+                        "type": "DatePipe",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 31,
+                "jsdoctags": [
+                    {
+                        "name": "httpService",
+                        "type": "GetAssetDataService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "datePipe",
+                        "type": "DatePipe",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<div  *ngIf=\"chartLabels.length > 0\">\n    <canvas\n    baseChart\n    [chartType]=\"'line'\"\n    [legend]=\"true\"\n    [datasets]=\"chartData\"\n    [labels]=\"chartLabels\"\n    [options]=\"chartOptions\"\n    >\n    </canvas>\n</div>\n<p style=\"font-size : 15px;padding-left: 80px;\" *ngIf=\"assetSelected == 3 || assetSelected == 1\">selected asset {{assetSelected}} has no data of its own hence showing sum of its children</p>\n"
+        },
+        {
+            "name": "HeaderComponent",
+            "id": "component-HeaderComponent-a557eec14f72c438a8033301f4d6ce023e0a1844a3b06ec2b38794a612acc31735ae78a5ee10071b230c8c20d699eb914554e69d07ade54adb371da8efb464cc",
+            "file": "src/stories/header.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "storybook-header",
+            "styleUrls": [
+                "./header.css"
+            ],
+            "styles": [],
+            "template": "<header>    <div class=\"wrapper\">\n      <div>\n        <svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\">\n          <g fill=\"none\" fillRule=\"evenodd\">\n            <path\n              d=\"M10 0h12a10 10 0 0110 10v12a10 10 0 01-10 10H10A10 10 0 010 22V10A10 10 0 0110 0z\"\n              fill=\"#FFF\"\n            />\n            <path\n              d=\"M5.3 10.6l10.4 6v11.1l-10.4-6v-11zm11.4-6.2l9.7 5.5-9.7 5.6V4.4z\"\n              fill=\"#555AB9\"\n            />\n            <path\n              d=\"M27.2 10.6v11.2l-10.5 6V16.5l10.5-6zM15.7 4.4v11L6 10l9.7-5.5z\"\n              fill=\"#91BAF8\"\n            />\n          </g>\n        </svg>\n        <h1>Acme</h1>\n      </div>\n      <div>\n        <div *ngIf=\"user\">\n          <span class=\"welcome\">\n            Welcome, <b>{{ user.name }}</b\n            >!\n          </span>\n          <storybook-button\n            *ngIf=\"user\"\n            size=\"small\"\n            (onClick)=\"onLogout.emit($event)\"\n            label=\"Log out\"\n          ></storybook-button>\n        </div>\n        <div *ngIf=\"!user\">\n          <storybook-button\n            *ngIf=\"!user\"\n            size=\"small\"\n            class=\"margin-left\"\n            (onClick)=\"onLogin.emit($event)\"\n            label=\"Log in\"\n          ></storybook-button>\n          <storybook-button\n            *ngIf=\"!user\"\n            primary\n            size=\"small\"\n            primary=\"true\"\n            class=\"margin-left\"\n            (onClick)=\"onCreateAccount.emit($event)\"\n            label=\"Sign up\"\n          ></storybook-button>\n        </div>\n      </div>\n    </div>\n  </header>",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "user",
+                    "defaultValue": "null",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 65,
+                    "type": "User | null",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "onCreateAccount",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 74,
+                    "type": "EventEmitter"
+                },
+                {
+                    "name": "onLogin",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 68,
+                    "type": "EventEmitter"
+                },
+                {
+                    "name": "onLogout",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 71,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, Input, Output, EventEmitter } from '@angular/core';\nimport { User } from './User';\n\n@Component({\n  selector: 'storybook-header',\n  template: `<header>\n    <div class=\"wrapper\">\n      <div>\n        <svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\">\n          <g fill=\"none\" fillRule=\"evenodd\">\n            <path\n              d=\"M10 0h12a10 10 0 0110 10v12a10 10 0 01-10 10H10A10 10 0 010 22V10A10 10 0 0110 0z\"\n              fill=\"#FFF\"\n            />\n            <path\n              d=\"M5.3 10.6l10.4 6v11.1l-10.4-6v-11zm11.4-6.2l9.7 5.5-9.7 5.6V4.4z\"\n              fill=\"#555AB9\"\n            />\n            <path\n              d=\"M27.2 10.6v11.2l-10.5 6V16.5l10.5-6zM15.7 4.4v11L6 10l9.7-5.5z\"\n              fill=\"#91BAF8\"\n            />\n          </g>\n        </svg>\n        <h1>Acme</h1>\n      </div>\n      <div>\n        <div *ngIf=\"user\">\n          <span class=\"welcome\">\n            Welcome, <b>{{ user.name }}</b\n            >!\n          </span>\n          <storybook-button\n            *ngIf=\"user\"\n            size=\"small\"\n            (onClick)=\"onLogout.emit($event)\"\n            label=\"Log out\"\n          ></storybook-button>\n        </div>\n        <div *ngIf=\"!user\">\n          <storybook-button\n            *ngIf=\"!user\"\n            size=\"small\"\n            class=\"margin-left\"\n            (onClick)=\"onLogin.emit($event)\"\n            label=\"Log in\"\n          ></storybook-button>\n          <storybook-button\n            *ngIf=\"!user\"\n            primary\n            size=\"small\"\n            primary=\"true\"\n            class=\"margin-left\"\n            (onClick)=\"onCreateAccount.emit($event)\"\n            label=\"Sign up\"\n          ></storybook-button>\n        </div>\n      </div>\n    </div>\n  </header>`,\n  styleUrls: ['./header.css'],\n})\nexport default class HeaderComponent {\n  @Input()\n  user: User | null = null;\n\n  @Output()\n  onLogin = new EventEmitter<Event>();\n\n  @Output()\n  onLogout = new EventEmitter<Event>();\n\n  @Output()\n  onCreateAccount = new EventEmitter<Event>();\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".wrapper {\n  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n  padding: 15px 20px;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n\nsvg {\n  display: inline-block;\n  vertical-align: top;\n}\n\nh1 {\n  font-weight: 900;\n  font-size: 20px;\n  line-height: 1;\n  margin: 6px 0 6px 10px;\n  display: inline-block;\n  vertical-align: top;\n}\n\nbutton + button {\n  margin-left: 10px;\n}\n\n.welcome {\n  color: #333;\n  font-size: 14px;\n  margin-right: 10px;\n}\n",
+                    "styleUrl": "./header.css"
+                }
+            ],
+            "stylesData": ""
+        },
+        {
+            "name": "PageComponent",
+            "id": "component-PageComponent-7126d8c2607c946741c651482413b43feb72b2d63cac9d3ac173fde206a5e635eb4cdbf7ca7ac9327c7d4d05cf7ef619144c34c11609ad677081d0ee4e855064",
+            "file": "src/stories/page.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "storybook-page",
+            "styleUrls": [
+                "./page.css"
+            ],
+            "styles": [],
+            "template": "<article>    <storybook-header\n      [user]=\"user\"\n      (onLogout)=\"doLogout()\"\n      (onLogin)=\"doLogin()\"\n      (onCreateAccount)=\"doCreateAccount()\"\n    ></storybook-header>\n    <section>\n      <h2>Pages in Storybook</h2>\n      <p>\n        We recommend building UIs with a\n        <a href=\"https://componentdriven.org\" target=\"_blank\" rel=\"noopener noreferrer\">\n          <strong>component-driven</strong>\n        </a>\n        process starting with atomic components and ending with pages.\n      </p>\n      <p>\n        Render pages with mock data. This makes it easy to build and review page states without\n        needing to navigate to them in your app. Here are some handy patterns for managing page data\n        in Storybook:\n      </p>\n      <ul>\n        <li>\n          Use a higher-level connected component. Storybook helps you compose such data from the\n          \"args\" of child component stories\n        </li>\n        <li>\n          Assemble data in the page component from your services. You can mock these services out\n          using Storybook.\n        </li>\n      </ul>\n      <p>\n        Get a guided tutorial on component-driven development at\n        <a href=\"https://storybook.js.org/tutorials/\" target=\"_blank\" rel=\"noopener noreferrer\">\n          Storybook tutorials\n        </a>\n        . Read more in the\n        <a href=\"https://storybook.js.org/docs\" target=\"_blank\" rel=\"noopener noreferrer\"> docs </a>\n        .\n      </p>\n      <div class=\"tip-wrapper\">\n        <span class=\"tip\">Tip</span> Adjust the width of the canvas with the\n        <svg width=\"10\" height=\"10\" viewBox=\"0 0 12 12\" xmlns=\"http://www.w3.org/2000/svg\">\n          <g fill=\"none\" fillRule=\"evenodd\">\n            <path\n              d=\"M1.5 5.2h4.8c.3 0 .5.2.5.4v5.1c-.1.2-.3.3-.4.3H1.4a.5.5 0 01-.5-.4V5.7c0-.3.2-.5.5-.5zm0-2.1h6.9c.3 0 .5.2.5.4v7a.5.5 0 01-1 0V4H1.5a.5.5 0 010-1zm0-2.1h9c.3 0 .5.2.5.4v9.1a.5.5 0 01-1 0V2H1.5a.5.5 0 010-1zm4.3 5.2H2V10h3.8V6.2z\"\n              id=\"a\"\n              fill=\"#999\"\n            />\n          </g>\n        </svg>\n        Viewports addon in the toolbar\n      </div>\n    </section>\n  </article>",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "user",
+                    "defaultValue": "null",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "User | null",
+                    "optional": false,
+                    "description": "",
+                    "line": 64
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "doCreateAccount",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 74,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "doLogin",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 70,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "doLogout",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 66,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { User } from './User';\n\n@Component({\n  selector: 'storybook-page',\n  template: `<article>\n    <storybook-header\n      [user]=\"user\"\n      (onLogout)=\"doLogout()\"\n      (onLogin)=\"doLogin()\"\n      (onCreateAccount)=\"doCreateAccount()\"\n    ></storybook-header>\n    <section>\n      <h2>Pages in Storybook</h2>\n      <p>\n        We recommend building UIs with a\n        <a href=\"https://componentdriven.org\" target=\"_blank\" rel=\"noopener noreferrer\">\n          <strong>component-driven</strong>\n        </a>\n        process starting with atomic components and ending with pages.\n      </p>\n      <p>\n        Render pages with mock data. This makes it easy to build and review page states without\n        needing to navigate to them in your app. Here are some handy patterns for managing page data\n        in Storybook:\n      </p>\n      <ul>\n        <li>\n          Use a higher-level connected component. Storybook helps you compose such data from the\n          \"args\" of child component stories\n        </li>\n        <li>\n          Assemble data in the page component from your services. You can mock these services out\n          using Storybook.\n        </li>\n      </ul>\n      <p>\n        Get a guided tutorial on component-driven development at\n        <a href=\"https://storybook.js.org/tutorials/\" target=\"_blank\" rel=\"noopener noreferrer\">\n          Storybook tutorials\n        </a>\n        . Read more in the\n        <a href=\"https://storybook.js.org/docs\" target=\"_blank\" rel=\"noopener noreferrer\"> docs </a>\n        .\n      </p>\n      <div class=\"tip-wrapper\">\n        <span class=\"tip\">Tip</span> Adjust the width of the canvas with the\n        <svg width=\"10\" height=\"10\" viewBox=\"0 0 12 12\" xmlns=\"http://www.w3.org/2000/svg\">\n          <g fill=\"none\" fillRule=\"evenodd\">\n            <path\n              d=\"M1.5 5.2h4.8c.3 0 .5.2.5.4v5.1c-.1.2-.3.3-.4.3H1.4a.5.5 0 01-.5-.4V5.7c0-.3.2-.5.5-.5zm0-2.1h6.9c.3 0 .5.2.5.4v7a.5.5 0 01-1 0V4H1.5a.5.5 0 010-1zm0-2.1h9c.3 0 .5.2.5.4v9.1a.5.5 0 01-1 0V2H1.5a.5.5 0 010-1zm4.3 5.2H2V10h3.8V6.2z\"\n              id=\"a\"\n              fill=\"#999\"\n            />\n          </g>\n        </svg>\n        Viewports addon in the toolbar\n      </div>\n    </section>\n  </article>`,\n  styleUrls: ['./page.css'],\n})\nexport default class PageComponent {\n  user: User | null = null;\n\n  doLogout() {\n    this.user = null;\n  }\n\n  doLogin() {\n    this.user = { name: 'Jane Doe' };\n  }\n\n  doCreateAccount() {\n    this.user = { name: 'Jane Doe' };\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "section {\n  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\n  font-size: 14px;\n  line-height: 24px;\n  padding: 48px 20px;\n  margin: 0 auto;\n  max-width: 600px;\n  color: #333;\n}\n\nsection h2 {\n  font-weight: 900;\n  font-size: 32px;\n  line-height: 1;\n  margin: 0 0 4px;\n  display: inline-block;\n  vertical-align: top;\n}\n\nsection p {\n  margin: 1em 0;\n}\n\nsection a {\n  text-decoration: none;\n  color: #1ea7fd;\n}\n\nsection ul {\n  padding-left: 30px;\n  margin: 1em 0;\n}\n\nsection li {\n  margin-bottom: 8px;\n}\n\nsection .tip {\n  display: inline-block;\n  border-radius: 1em;\n  font-size: 11px;\n  line-height: 12px;\n  font-weight: 700;\n  background: #e7fdd8;\n  color: #66bf3c;\n  padding: 4px 12px;\n  margin-right: 10px;\n  vertical-align: top;\n}\n\nsection .tip-wrapper {\n  font-size: 13px;\n  line-height: 20px;\n  margin-top: 40px;\n  margin-bottom: 40px;\n}\n\nsection .tip-wrapper svg {\n  display: inline-block;\n  height: 12px;\n  width: 12px;\n  margin-right: 4px;\n  vertical-align: top;\n  margin-top: 3px;\n}\n\nsection .tip-wrapper svg path {\n  fill: #1ea7fd;\n}\n",
+                    "styleUrl": "./page.css"
+                }
+            ],
+            "stylesData": ""
+        }
+    ],
+    "modules": [
+        {
+            "name": "AppModule",
+            "id": "module-AppModule-c15269770b0a67b089b7c6f158e42fdd2b2b42029db5e323d1cb8d11093ca4ae4e93f2460a1fb4237eab29c7e3af3767c44a096d58f4e86b1124186061e47331",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/app/app.module.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { BrowserModule } from '@angular/platform-browser';\n\n\nimport { AppRoutingModule } from './app-routing.module';\nimport { HttpClientModule } from '@angular/common/http';\nimport { AppComponent } from './app.component';\nimport { BrowserAnimationsModule } from '@angular/platform-browser/animations';\nimport { MatSidenavModule } from '@angular/material/sidenav';\nimport { MatButtonModule } from '@angular/material/button';\nimport { MatToolbarModule } from '@angular/material/toolbar';\nimport { MatTreeModule } from '@angular/material/tree';\nimport { MatIconModule } from '@angular/material/icon';\nimport { AssetComponent } from './assets/asset.component';\n\nimport {  ChartsModule } from 'ng2-charts';\nimport { CommonModule, DatePipe } from '@angular/common';\nimport { FormsModule } from '@angular/forms';\nimport { StoreModule } from '@ngrx/store';\n\nimport { StoreDevtoolsModule } from '@ngrx/store-devtools';\n\nimport { EffectsModule } from '@ngrx/effects';\nimport  { assetReducer } from './app-state/asset-state/asset-state.reducer';\nimport  { AssetEffects } from './app-state/asset-state/asset-state.effects';\nimport { ChartsComponent } from './charts/charts.component';\n\n\n\n\n@NgModule({\n  declarations: [\n    AppComponent,\n    AssetComponent,\n    ChartsComponent\n\n  ],\n  imports: [\n    BrowserModule,\n    AppRoutingModule,\n    BrowserAnimationsModule,\n    HttpClientModule,\n    ChartsModule,\n    FormsModule,\n    EffectsModule.forRoot([AssetEffects]),\n    StoreModule.forRoot({ assets : assetReducer}),\n\n\n    MatSidenavModule,\n    MatButtonModule,\n    MatToolbarModule,\n    MatTreeModule,\n    MatIconModule,\n    CommonModule\n  ],\n  providers: [\n    DatePipe\n  ],\n\n  bootstrap: [AppComponent]\n})\nexport class AppModule { }\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "AppComponent"
+                        },
+                        {
+                            "name": "AssetComponent"
+                        },
+                        {
+                            "name": "ChartsComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "AppRoutingModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": [
+                        {
+                            "name": "AppComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "AppRoutingModule",
+            "id": "module-AppRoutingModule-511343372209a7f5b1b184eee6947f33458b169b9c742e25f6157ca80c71c69fa878d20a963337d127bdfb14e408ef22c97c5f291073776fe3f0c49066be01f4",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/app/app-routing.module.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { RouterModule, Routes } from '@angular/router';\nimport { AssetComponent } from './assets/asset.component';\n\nconst routes: Routes = [\n  {\n    path : 'asset-data', component:AssetComponent,\n  },\n  {\n    path : '**' , redirectTo : 'asset-data'\n  }\n];\n\n@NgModule({\n  imports: [RouterModule.forRoot(routes)],\n  exports: [RouterModule]\n})\nexport class AppRoutingModule { }\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        }
+    ],
+    "miscellaneous": {
+        "variables": [
+            {
+                "name": "adapter",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "EntityAdapter<Asset>",
+                "defaultValue": "createEntityAdapter<Asset>()"
+            },
+            {
+                "name": "assetReducer",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createReducer(\r\n    initialState,\r\n    on(AssetActions.selectAsset, (state, { assetId }) => {\r\n      return { ...state, selectedAssetId: assetId };\r\n    }),\r\n    on(AssetActions.loadAssets, (state, { assets }) => {\r\n      return adapter.addMany( assets , { ...state, selectedAssetId: null });\r\n    })\r\n  )"
+            },
+            {
+                "name": "context",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.prod.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\n  production: true\n}"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\n  production: false\n}"
+            },
+            {
+                "name": "getSelectAssetId",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "(state: State) => state.selectedAssetId"
+            },
+            {
+                "name": "initialState",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "State",
+                "defaultValue": "adapter.getInitialState({\r\n    // additional entity state properties\r\n    selectedAssetId: null,\r\n  })"
+            },
+            {
+                "name": "Large",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "loadAssets",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/app-state/asset-state/asset-state.actions.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createAction('[Asset/API] Load Assets', props<{ assets: Asset[] }>())"
+            },
+            {
+                "name": "loadAsstesSuccess",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/app-state/asset-state/asset-state.actions.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createAction(\r\n    '[asset page] load asset success',\r\n    props<{ assets: Asset[] }>()\r\n  )"
+            },
+            {
+                "name": "loadSelectedAssetChartData",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/app-state/asset-state/asset-state.actions.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createAction('[Asset/API] Load chart data', props<{ chartData : chartData[] }>)"
+            },
+            {
+                "name": "LoggedIn",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Header.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "LoggedIn",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Page.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "LoggedOut",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Header.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "LoggedOut",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Page.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Primary",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "reducers",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/app-state/asset-state/asset-state.selectors.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "ActionReducerMap<State>",
+                "defaultValue": "{\r\n    assets: fromAsset.reducer,\r\n  }"
+            },
+            {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "literal type"
+            },
+            {
+                "name": "Secondary",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "selectAllAssets",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/app-state/asset-state/asset-state.selectors.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createSelector(\r\n    selectAssetState,\r\n    fromAsset.selectAllAsstes\r\n  )"
+            },
+            {
+                "name": "selectAllAsstes",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "selectAll"
+            },
+            {
+                "name": "selectAsset",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/app-state/asset-state/asset-state.actions.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createAction('[Assets Page] Select Asset', props<{ assetId: string }>())"
+            },
+            {
+                "name": "selectAssetEntities",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/app-state/asset-state/asset-state.selectors.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createSelector(\r\n    selectAssetState,\r\n    fromAsset.selectAssetEntities\r\n  )"
+            },
+            {
+                "name": "selectAssetEntities",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "selectEntities"
+            },
+            {
+                "name": "selectAssetIds",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "selectIds"
+            },
+            {
+                "name": "selectAssetState",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/app-state/asset-state/asset-state.selectors.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createFeatureSelector<fromAsset.State>('assets')"
+            },
+            {
+                "name": "selectCurrentAsset",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/app-state/asset-state/asset-state.selectors.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createSelector(\r\n    selectAssetEntities,\r\n    selectCurrentAssetId,\r\n    (assetEntities, assetId) => assetId && assetEntities[assetId]\r\n  )"
+            },
+            {
+                "name": "selectCurrentAssetId",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/app-state/asset-state/asset-state.selectors.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createSelector(\r\n    selectAssetState,\r\n    fromAsset.getSelectAssetId\r\n  )"
+            },
+            {
+                "name": "Small",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<Button>",
+                "defaultValue": "(args: Button) => ({\n  props: args,\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Header.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<Header>",
+                "defaultValue": "(args: Header) => ({\n  props: args,\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Page.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<Page>",
+                "defaultValue": "(args: Page) => ({\n  props: args,\n})"
+            },
+            {
+                "name": "treeData",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/assets/asset.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "assetNode[]",
+                "defaultValue": "[\n  {\n    name : 'Asset 0',\n    id: 0,\n    children : []\n  },\n  {\n    name : 'Asset 1',\n    id: 1,\n    children : [\n      {name : 'Asset 2',id:2,children: []},\n      {name:'Asset 3',id:3,children : [\n        {name : 'Asset 4', id:4,children : []}\n      ]}\n    ]\n  }\n\n]"
+            },
+            {
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "adapter.getSelectors()"
+            }
+        ],
+        "functions": [
+            {
+                "name": "reducer",
+                "file": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "args": [
+                    {
+                        "name": "state",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "action",
+                        "type": "Action",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "jsdoctags": [
+                    {
+                        "name": "state",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "action",
+                        "type": "Action",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            }
+        ],
+        "typealiases": [],
+        "enumerations": [],
+        "groupedVariables": {
+            "src/app/app-state/asset-state/asset-state.reducer.ts": [
+                {
+                    "name": "adapter",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "EntityAdapter<Asset>",
+                    "defaultValue": "createEntityAdapter<Asset>()"
+                },
+                {
+                    "name": "assetReducer",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createReducer(\r\n    initialState,\r\n    on(AssetActions.selectAsset, (state, { assetId }) => {\r\n      return { ...state, selectedAssetId: assetId };\r\n    }),\r\n    on(AssetActions.loadAssets, (state, { assets }) => {\r\n      return adapter.addMany( assets , { ...state, selectedAssetId: null });\r\n    })\r\n  )"
+                },
+                {
+                    "name": "getSelectAssetId",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "(state: State) => state.selectedAssetId"
+                },
+                {
+                    "name": "initialState",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "State",
+                    "defaultValue": "adapter.getInitialState({\r\n    // additional entity state properties\r\n    selectedAssetId: null,\r\n  })"
+                },
+                {
+                    "name": "selectAllAsstes",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "selectAll"
+                },
+                {
+                    "name": "selectAssetEntities",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "selectEntities"
+                },
+                {
+                    "name": "selectAssetIds",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "selectIds"
+                },
+                {
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "adapter.getSelectors()"
+                }
+            ],
+            "src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type"
+                }
+            ],
+            "src/environments/environment.prod.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.prod.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\n  production: true\n}"
+                }
+            ],
+            "src/environments/environment.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\n  production: false\n}"
+                }
+            ],
+            "src/stories/Button.stories.ts": [
+                {
+                    "name": "Large",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Primary",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Secondary",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Small",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<Button>",
+                    "defaultValue": "(args: Button) => ({\n  props: args,\n})"
+                }
+            ],
+            "src/app/app-state/asset-state/asset-state.actions.ts": [
+                {
+                    "name": "loadAssets",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/app-state/asset-state/asset-state.actions.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createAction('[Asset/API] Load Assets', props<{ assets: Asset[] }>())"
+                },
+                {
+                    "name": "loadAsstesSuccess",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/app-state/asset-state/asset-state.actions.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createAction(\r\n    '[asset page] load asset success',\r\n    props<{ assets: Asset[] }>()\r\n  )"
+                },
+                {
+                    "name": "loadSelectedAssetChartData",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/app-state/asset-state/asset-state.actions.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createAction('[Asset/API] Load chart data', props<{ chartData : chartData[] }>)"
+                },
+                {
+                    "name": "selectAsset",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/app-state/asset-state/asset-state.actions.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createAction('[Assets Page] Select Asset', props<{ assetId: string }>())"
+                }
+            ],
+            "src/stories/Header.stories.ts": [
+                {
+                    "name": "LoggedIn",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Header.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "LoggedOut",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Header.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Header.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<Header>",
+                    "defaultValue": "(args: Header) => ({\n  props: args,\n})"
+                }
+            ],
+            "src/stories/Page.stories.ts": [
+                {
+                    "name": "LoggedIn",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Page.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "LoggedOut",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Page.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Page.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<Page>",
+                    "defaultValue": "(args: Page) => ({\n  props: args,\n})"
+                }
+            ],
+            "src/app/app-state/asset-state/asset-state.selectors.ts": [
+                {
+                    "name": "reducers",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/app-state/asset-state/asset-state.selectors.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ActionReducerMap<State>",
+                    "defaultValue": "{\r\n    assets: fromAsset.reducer,\r\n  }"
+                },
+                {
+                    "name": "selectAllAssets",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/app-state/asset-state/asset-state.selectors.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createSelector(\r\n    selectAssetState,\r\n    fromAsset.selectAllAsstes\r\n  )"
+                },
+                {
+                    "name": "selectAssetEntities",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/app-state/asset-state/asset-state.selectors.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createSelector(\r\n    selectAssetState,\r\n    fromAsset.selectAssetEntities\r\n  )"
+                },
+                {
+                    "name": "selectAssetState",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/app-state/asset-state/asset-state.selectors.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createFeatureSelector<fromAsset.State>('assets')"
+                },
+                {
+                    "name": "selectCurrentAsset",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/app-state/asset-state/asset-state.selectors.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createSelector(\r\n    selectAssetEntities,\r\n    selectCurrentAssetId,\r\n    (assetEntities, assetId) => assetId && assetEntities[assetId]\r\n  )"
+                },
+                {
+                    "name": "selectCurrentAssetId",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/app-state/asset-state/asset-state.selectors.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createSelector(\r\n    selectAssetState,\r\n    fromAsset.getSelectAssetId\r\n  )"
+                }
+            ],
+            "src/app/assets/asset.component.ts": [
+                {
+                    "name": "treeData",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/assets/asset.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "assetNode[]",
+                    "defaultValue": "[\n  {\n    name : 'Asset 0',\n    id: 0,\n    children : []\n  },\n  {\n    name : 'Asset 1',\n    id: 1,\n    children : [\n      {name : 'Asset 2',id:2,children: []},\n      {name:'Asset 3',id:3,children : [\n        {name : 'Asset 4', id:4,children : []}\n      ]}\n    ]\n  }\n\n]"
+                }
+            ]
+        },
+        "groupedFunctions": {
+            "src/app/app-state/asset-state/asset-state.reducer.ts": [
+                {
+                    "name": "reducer",
+                    "file": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "args": [
+                        {
+                            "name": "state",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "action",
+                            "type": "Action",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "state",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "action",
+                            "type": "Action",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "groupedEnumerations": {},
+        "groupedTypeAliases": {}
+    },
+    "routes": {
+        "name": "<root>",
+        "kind": "module",
+        "className": "AppModule",
+        "children": [
+            {
+                "name": "routes",
+                "filename": "src/app/app-routing.module.ts",
+                "module": "AppRoutingModule",
+                "children": [
+                    {
+                        "path": "asset-data",
+                        "component": "AssetComponent"
+                    },
+                    {
+                        "path": "**",
+                        "redirectTo": "asset-data"
+                    }
+                ],
+                "kind": "module"
+            }
+        ]
+    },
+    "coverage": {
+        "count": 1,
+        "status": "low",
+        "files": [
+            {
+                "filePath": "src/app/app-state/app.state.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "AppState",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app-state/asset-state/asset-state.actions.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "loadAssets",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app-state/asset-state/asset-state.actions.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "loadAsstesSuccess",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app-state/asset-state/asset-state.actions.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "loadSelectedAssetChartData",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app-state/asset-state/asset-state.actions.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "selectAsset",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app-state/asset-state/asset-state.effects.ts",
+                "type": "injectable",
+                "linktype": "injectable",
+                "name": "AssetEffects",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "Asset",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "State",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                "type": "function",
+                "linktype": "miscellaneous",
+                "linksubtype": "function",
+                "name": "reducer",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "adapter",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "assetReducer",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "getSelectAssetId",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "initialState",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "selectAllAsstes",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "selectAssetEntities",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "selectAssetIds",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app-state/asset-state/asset-state.reducer.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app-state/asset-state/asset-state.selectors.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "State",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app-state/asset-state/asset-state.selectors.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "reducers",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app-state/asset-state/asset-state.selectors.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "selectAllAssets",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app-state/asset-state/asset-state.selectors.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "selectAssetEntities",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app-state/asset-state/asset-state.selectors.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "selectAssetState",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app-state/asset-state/asset-state.selectors.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "selectCurrentAsset",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app-state/asset-state/asset-state.selectors.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "selectCurrentAssetId",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "AppComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/assets/asset-data.model.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "Asset",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/assets/asset.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "AssetComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/19",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/assets/asset.component.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "assetNode",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/assets/asset.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "treeData",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/assets/get-asset-data.service.ts",
+                "type": "injectable",
+                "linktype": "injectable",
+                "name": "GetAssetDataService",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/charts/chart-data.model.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "chartData",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/charts/charts.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ChartsComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/18",
+                "status": "low"
+            },
+            {
+                "filePath": "src/environments/environment.prod.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/environments/environment.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Large",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Primary",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Secondary",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Small",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Header.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "LoggedIn",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Header.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "LoggedOut",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Header.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Page.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "LoggedIn",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Page.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "LoggedOut",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Page.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/User.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "User",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/button.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ButtonComponent",
+                "coveragePercent": 83,
+                "coverageCount": "5/6",
+                "status": "very-good"
+            },
+            {
+                "filePath": "src/stories/header.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "HeaderComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/page.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "PageComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/test.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "context",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/test.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "require",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            }
+        ]
+    }
+}

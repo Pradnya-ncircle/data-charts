@@ -20,4 +20,8 @@ export class GetAssetDataService {
     return this.http.get(this.baseUrl + '/' + id)
   }
 
+  getAsstes():Observable<any>{
+    return this.http.get('assets/assets.json')
+  }
+
 }

@@ -76,15 +76,14 @@ export class ChartsComponent implements OnInit {
                 this.measurements.push(value)
                })
 
-                    if(selected == 3){
-                                Object.entries(res[2].measurements).forEach(([dates,value])=>{
-                                  this.dates3.push(this.datePipe.transform(dates, 'MMM yy'));
-                                  this.measurements3.push(value)
-                                        this.getChartData(this.dates3, this.measurements3, selected)
-                                      
-
-                                })
+                if(selected == 3){
+                    Object.entries(res[2].measurements).forEach(([dates,value])=>{
+                        this.dates3.push(this.datePipe.transform(dates, 'MMM yy'));
+                        this.measurements3.push(value)
+                        this.getChartData(this.dates3, this.measurements3, selected)
+                      })
                   }
+
                   Object.entries(res[2].measurements).forEach(([dates,value])=>{
                     this.dates2.push(this.datePipe.transform(dates, 'MMM yy'));
                     this.measurements3.push(value)
@@ -96,15 +95,13 @@ export class ChartsComponent implements OnInit {
                        this.measurements.map((num, idx) => {
                          sum.push (num + this.measurements2[idx]);
                       });
-                     this.getChartData(this.dates,sum,selected)
+                      this.getChartData(this.dates,sum,selected)
                     }
                    
                  })  
-                })
-       
-     }) 
-  
-  
+                }) 
+         }) 
+
     }
 
 
