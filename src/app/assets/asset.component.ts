@@ -120,23 +120,48 @@ export class AssetComponent implements OnInit {
 
   hasChild = (_:number, node: assetNode)=> !!node.children && node.children.length>0;
  
+ childrens:any[] = []
+ tempDts :any [] = []
+ tempMs: any [] = []
   
-  iterateTree(treeNodes:any, selectedNode : any) {
-    
-    for(let treeNode of treeNodes) {
-        if(treeNode.id == selectedNode){
+  iterateTree(treeNode:any, selectedNode : any) {
             if(treeNode.children.length > 0){
-              this.iterateTree(treeNode.children, selectedNode)                
+              treeNode.children.forEach((elem : any)=>{
+                this.childrens.push(elem);
+                this.iterateTree(elem, selectedNode) 
+              })
             }
-            else{
+            else if(treeNode.children.length === 0){
+           
               this.dataService.getDataById(treeNode.id).subscribe(res=>{
-                console.log(res)
+                this.dates = []
+                this.measurements = []
+                this.tempDts = []
+                this.tempMs = []
+                  Object.entries(res.measurements).forEach(([keys,values])=>{
+                    if(treeNode.parentId !=null){
+                    
+                      this.tempDts.push(this.datePipe.transform(keys, 'MMM yy'))
+                      this.tempMs.push(values)   
+                      this.getChartData(this.tempDts, this.tempMs, selectedNode)
+                    }
+                    else{              
+                      this.dates.push(this.datePipe.transform(keys, 'MMM yy'))
+                      this.measurements.push(values)
+                      this.getChartData(this.dates, this.measurements, selectedNode)
+                    
+                    }
+                   
+                  })
+
+                  console.log(this.tempDts)
+                  console.log(this.tempMs)
+                  console.log(this.dates)
+                  console.log(this.measurements)
+
+                  console.log(this.sum)
                })
-            }
-            
-        }
- 
-    }
+              }
   }
 
   getKeyValues(obj : any){
@@ -151,58 +176,30 @@ export class AssetComponent implements OnInit {
     })
   }
 
+  getChartData(labels:any, dataset:any, selected :any){
+    this.chartLabels = labels
+      
+    this.chartData = [
+      {
+              data :dataset,// measurement values
+              label : 'Asset '+selected, //selected asset 
+              fill : false,
+              tension: 0,
+              borderColor: '#4588d4' 
+      }
+    ]
+
+    this.chartOptions = {
+      responsive : true
+    }
+  }
   selectedNode(node: any){
     console.log(node)
     this.selectedAsset = node.id
     this.selectedAssetId = node.id;
 
-    this.iterateTree(treeData, this.selectedAssetId); //recursive 
+    this.iterateTree(node, this.selectedAssetId); //recursive 
 
-    
-  //   treeData.forEach((node:any)=>{
-  //     if(this.selectedAssetId === node.id){
-  //       if(node.children.length>0){
-  //         node.children?.map((child:any)=>{
-  //           if(child.parentId === this.selectedAssetId){
-  //             //getting 2 & 3
-  //               if(child.children.length > 0){ // asset 3
-  //                   child.children.map((lowestChild : any)=>{
-  //                     this.dataService.getDataById(lowestChild.id).subscribe(res=>{
-  //                         console.log(res)
-  //                         Object.entries(res.measurements).forEach(([dates,value])=>{
-  //                           this.datesVal.push(this.datePipe.transform(dates, 'MMM yy'));
-  //                           this.measurements1.push(value) // stored asset 4 values
-  //                          })
-  //                     })
-              
-  //                   })
-  //               }else if(child.children.length === 0){ // asset 2
-  //                 console.log(child.id)
-  //                 this.dataService.getDataById(child.id).subscribe(res=>{
-  //                   var temp : any[] = []
-  //                   Object.entries(res.measurements).forEach(([dates,value])=>{
-  //                     temp.push(value);
-  //                     this.measurements1.map((num, idx) => {
-  //                       this.sum.push(num + temp[idx]); //added asset 2 values to asset 4 values
-  //                    });
-  //                    })
-  //                    console.log(temp)
-                   
-  //                  console.log(this.sum)
-  //                 })
-  //               }
-        
-  //             }
-            
-  //           })
-  //       }
-  //       else if(node.children.length === 0){
-  //        this.dataService.getDataById(node.id).subscribe(res=>{
-  //         console.log(res);
-  //        })
-  //       }
-  //     }
-  // })
     }
 
   }
