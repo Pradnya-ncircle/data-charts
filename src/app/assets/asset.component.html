@@ -29,11 +29,14 @@
   
     <div class="example-sidenav-content mat-elevation-z8">
      
-      <div  *ngIf="selectedAssetId == 5">
-         No Asset Selected 
+      <div align="center" *ngIf="selectedAssetId == 5">
+            <h3>
+              No Asset Selected 
+            </h3> 
+            <p style="font-size: 20px;">You can select the asset from the menu on the left</p>
       </div>
       <div *ngIf="selectedAssetId < 5" style="width:60%;"> 
-          <!-- <app-charts [selectedAsset]="selectedAsset"></app-charts> -->
+        
           <div  *ngIf="chartLabels.length > 0">
             <canvas
             baseChart
@@ -45,7 +48,7 @@
             >
             </canvas>
         </div>
-        <p style="font-size : 15px;padding-left: 80px; color: darkgray;" *ngIf=" selectedAsset == 3 || selectedAsset == 1">selected asset {{selectedAsset}} has no data of its own hence showing sum of its children</p>
+        <p style="font-size : 15px;padding-left: 80px; color: darkgray;" *ngIf=" selectedAsset == 3 || selectedAsset == 1">Selected asset {{selectedAsset}} has no data of its own hence showing sum of its children</p>
         
       </div>
    

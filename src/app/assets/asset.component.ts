@@ -52,7 +52,7 @@ const treeData : assetNode[] = [
           id: 4,
           parentId : 3,
           children : []
-        }
+        },
       ]
       }
     ]
@@ -96,7 +96,6 @@ export class AssetComponent implements OnInit {
   measurements: any[] =[];
 
   constructor(private dataService : GetAssetDataService,
-    private store : Store,
     private datePipe : DatePipe){
     this.dataSource.data = treeData
   }
@@ -125,10 +124,10 @@ export class AssetComponent implements OnInit {
                     this.iterateTree(elem, selectedNode) 
                   }
                   this.dataService.getDataById(elem.id).subscribe(res=>{
-                    // console.log(treeNode)
+                    console.log(treeNode)
                     this.tempDts = []
                     this.tempMs = []
-                    
+                    this.sum = []
                       Object.entries(res.measurements).forEach(([keys,values])=>{
                           this.tempDts.push(this.datePipe.transform(keys, 'MMM yy'))
                           this.tempMs.push(values)
@@ -145,10 +144,10 @@ export class AssetComponent implements OnInit {
               })
             }
             else if(treeNode.children.length === 0){
-              console.log("nochild")
+              // console.log("nochild")
             
               this.dataService.getDataById(treeNode.id).subscribe(res=>{
-                // console.log(treeNode)
+                console.log(treeNode)
                 this.dates = []
                 this.measurements = []
                 this.tempDts = []

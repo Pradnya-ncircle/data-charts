@@ -1,35 +1,35 @@
-import { createSelector, createFeatureSelector, ActionReducerMap, } from "@ngrx/store";
-import * as fromAsset from './asset-state.reducer'
+// import { createSelector, createFeatureSelector, ActionReducerMap, } from "@ngrx/store";
+// import * as fromAsset from './asset-state.reducer'
 
-export interface State {
-    assets : fromAsset.State;
-  }
+// export interface State {
+//     assets : fromAsset.State;
+//   }
    
-  export const reducers: ActionReducerMap<State> = {
-    assets: fromAsset.reducer,
-  };
+//   export const reducers: ActionReducerMap<State> = {
+//     assets: fromAsset.reducer,
+//   };
 
-  export const selectAssetState = createFeatureSelector<fromAsset.State>('assets');
+//   export const selectAssetState = createFeatureSelector<fromAsset.State>('assets');
 
-  export const selectCurrentAssetId = createSelector(
-    selectAssetState,
-    fromAsset.getSelectAssetId
-  )
+//   export const selectCurrentAssetId = createSelector(
+//     selectAssetState,
+//     fromAsset.getSelectAssetId
+//   )
 
-  export const selectAssetEntities = createSelector(
-    selectAssetState,
-    fromAsset.selectAssetEntities
-  );
-  export const selectAllAssets = createSelector(
-    selectAssetState,
-    fromAsset.selectAllAsstes
-  );
+//   export const selectAssetEntities = createSelector(
+//     selectAssetState,
+//     fromAsset.selectAssetEntities
+//   );
+//   export const selectAllAssets = createSelector(
+//     selectAssetState,
+//     fromAsset.selectAllAsstes
+//   );
 
-  export const selectCurrentAsset = createSelector(
-    selectAssetEntities,
-    selectCurrentAssetId,
-    (assetEntities, assetId) => assetId && assetEntities[assetId]
-  );
+//   export const selectCurrentAsset = createSelector(
+//     selectAssetEntities,
+//     selectCurrentAssetId,
+//     (assetEntities, assetId) => assetId && assetEntities[assetId]
+//   );
 
 
 
