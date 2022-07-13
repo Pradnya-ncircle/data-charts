@@ -3,7 +3,7 @@ import { CdkTreeNode, NestedTreeControl } from '@angular/cdk/tree';
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
-import { Store } from '@ngrx/store';
+import { emptyProps, Store } from '@ngrx/store';
 import { arraysAreNotAllowedInProps } from '@ngrx/store/src/models';
 
 import { BaseChartDirective } from 'ng2-charts';
@@ -104,18 +104,10 @@ export class AssetComponent implements OnInit {
 
   ngOnInit(): void { 
 
-    this.dataService.getAsstes().subscribe(res=>{
-      this.assets = res
-    
-    //   this.assets.forEach((asset:any)=>{
-    //     if(asset.parentId !=null){
-        // attach children
-    //     }
-    //   })
-    })
+    // this.dataService.getAsstes().subscribe(res=>{
+    //   this.assets = res
 
-
-
+    // })
    }
 
   hasChild = (_:number, node: assetNode)=> !!node.children && node.children.length>0;
@@ -123,76 +115,75 @@ export class AssetComponent implements OnInit {
  childrens:any[] = []
  tempDts :any [] = []
  tempMs: any [] = []
-  
+
   iterateTree(treeNode:any, selectedNode : any) {
             if(treeNode.children.length > 0){
               treeNode.children.forEach((elem : any)=>{
-                this.childrens.push(elem);
-                this.iterateTree(elem, selectedNode) 
+                  // console.log(elem.children)
+               
+                  if(elem.children != null){
+                    this.iterateTree(elem, selectedNode) 
+                  }
+                  this.dataService.getDataById(elem.id).subscribe(res=>{
+                    // console.log(treeNode)
+                    this.tempDts = []
+                    this.tempMs = []
+                    
+                      Object.entries(res.measurements).forEach(([keys,values])=>{
+                          this.tempDts.push(this.datePipe.transform(keys, 'MMM yy'))
+                          this.tempMs.push(values)
+                          this.sum = []
+                          this.tempMs.map((num, idx) => {
+                            this.sum.push (num + this.measurements[idx]);
+                         });
+                         if(elem.parentId === selectedNode){
+                          // console.log(this.sum)
+                          this.getChartData(this.dates, this.sum, selectedNode)       
+                         }
+                      })
+                   })
               })
             }
             else if(treeNode.children.length === 0){
-           
+              console.log("nochild")
+            
               this.dataService.getDataById(treeNode.id).subscribe(res=>{
+                // console.log(treeNode)
                 this.dates = []
                 this.measurements = []
                 this.tempDts = []
                 this.tempMs = []
                   Object.entries(res.measurements).forEach(([keys,values])=>{
-                    if(treeNode.parentId !=null){
-                    
-                      this.tempDts.push(this.datePipe.transform(keys, 'MMM yy'))
-                      this.tempMs.push(values)   
-                      this.getChartData(this.tempDts, this.tempMs, selectedNode)
-                    }
-                    else{              
                       this.dates.push(this.datePipe.transform(keys, 'MMM yy'))
                       this.measurements.push(values)
-                      this.getChartData(this.dates, this.measurements, selectedNode)
-                    
-                    }
-                   
+                      // console.log(this.measurements)
+                      this.getChartData(this.dates, this.measurements, selectedNode)       
                   })
-
-                  console.log(this.tempDts)
-                  console.log(this.tempMs)
-                  console.log(this.dates)
-                  console.log(this.measurements)
-
-                  console.log(this.sum)
                })
               }
   }
 
-  getKeyValues(obj : any){
-    var tempDts :any [] = []
-    var tempMs: any [] = []
-    Object.entries(obj).forEach(([keys,values])=>{
-      tempDts.push(this.datePipe.transform(keys, 'MMM yy'))
-      tempMs.push(values)
-      return {
-       tempDts, tempMs
-      }
-    })
-  }
+
 
   getChartData(labels:any, dataset:any, selected :any){
     this.chartLabels = labels
       
     this.chartData = [
-      {
-              data :dataset,// measurement values
-              label : 'Asset '+selected, //selected asset 
-              fill : false,
-              tension: 0,
-              borderColor: '#4588d4' 
-      }
-    ]
+                        {
+                            data :dataset,// measurement values
+                            label : 'Asset '+selected, //selected asset 
+                            fill : false,
+                            tension: 0,
+                            borderColor: '#4588d4' 
+                        }
+                   ]
 
     this.chartOptions = {
       responsive : true
     }
   }
+
+
   selectedNode(node: any){
     console.log(node)
     this.selectedAsset = node.id

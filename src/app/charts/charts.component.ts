@@ -88,8 +88,7 @@ export class ChartsComponent implements OnInit {
                     this.dates2.push(this.datePipe.transform(dates, 'MMM yy'));
                     this.measurements3.push(value)
                     this.measurements2.push(value)
-           
-                  
+
                     if(selected == 1){
                       var sum : any [] = []
                        this.measurements.map((num, idx) => {
