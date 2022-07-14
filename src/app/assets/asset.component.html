@@ -37,7 +37,7 @@
       </div>
       <div *ngIf="selectedAssetId < 5" style="width:60%;"> 
         
-          <div  *ngIf="chartLabels.length > 0">
+          <div *ngIf="chartData">
             <canvas
             baseChart
             [chartType]="'line'"
@@ -48,7 +48,9 @@
             >
             </canvas>
         </div>
-        <p style="font-size : 15px;padding-left: 80px; color: darkgray;" *ngIf=" selectedAsset == 3 || selectedAsset == 1">Selected asset {{selectedAsset}} has no data of its own hence showing sum of its children</p>
+
+          <p style="font-size : 15px;padding-left: 80px; color: darkgray;" >Selected asset {{selectedAssetId}} has no data of its own hence showing sum of its children</p>
+
         
       </div>
    

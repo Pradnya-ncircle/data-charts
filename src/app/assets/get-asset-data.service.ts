@@ -21,7 +21,7 @@ export class GetAssetDataService {
   }
 
   getAsstes():Observable<any>{
-    return this.http.get('assets/assets.json')
+    return this.http.get('assets/data/assets.json')
   }
 
 }
