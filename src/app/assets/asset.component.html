@@ -35,19 +35,23 @@
             </h3> 
             <p style="font-size: 20px;">You can select the asset from the menu on the left</p>
       </div>
-      <div *ngIf="selectedAssetId < 5" style="width:60%;"> 
+      <div *ngIf="selectedAssetId < 5" style="width:70%;"> 
         
           <div *ngIf="chartData">
             <canvas
             baseChart
             [chartType]="'line'"
-            [legend]="true"
+            [legend]="false"
             [datasets]="chartData"
             [labels]="chartLabels"
             [options]="chartOptions"
             >
             </canvas>
-        </div>
+            <br>
+            <p align="center" style="font-size : 15px;padding-left: 80px; color: black;" *ngIf="availableAsset == undefined">
+              Selected asset {{selectedAssetId}} has no data of its own hence showing sum of its children
+            </p>
+          </div>
       </div>
    
     </div>  

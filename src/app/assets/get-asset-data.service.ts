@@ -10,17 +10,11 @@ export class GetAssetDataService {
 
   constructor(private http : HttpClient) { }
 
-   baseUrl = "http://localhost:3000/measurement"
-
   getData():Observable<any>{
-    return this.http.get(this.baseUrl)
+    return this.http.get('assets/data/measurements.json')
   }
 
-  getDataById(id:number):Observable<any>{
-    return this.http.get(this.baseUrl + '/' + id)
-  }
-
-  getAsstes():Observable<any>{
+  getAssets():Observable<any>{
     return this.http.get('assets/data/assets.json')
   }
 
