@@ -25,43 +25,6 @@ interface assetNode{
   children? : assetNode[]
 }
 
-const treeData : assetNode[] = [
-  {
-    name : 'Asset 0',
-    id: 0,
-    parentId : null,
-    children : []
-  },
-  {
-    name : 'Asset 1',
-    id: 1,
-    parentId : null,
-    children : [
-      {
-        name : 'Asset 2',
-        id:2 ,
-        parentId : 1,
-        children: [
-          
-        ]
-      },
-      {
-        name:'Asset 3',
-        id:3,
-        parentId : 1,
-        children : [
-        {
-          name : 'Asset 4', 
-          id: 4,
-          parentId : 3,
-          children : []
-        }
-      ]
-      }
-    ]
-  }
-
-]
 
 @Component({
   selector: 'app-asset',
@@ -101,34 +64,11 @@ export class AssetComponent implements OnInit {
 
   constructor(private dataService : GetAssetDataService,
     private datePipe : DatePipe){
-      this.dataSource.data = treeData
 
-    // this.dataService.getAsstes().subscribe(res=>{
-    //   this.assets = res
-    //   this.assets.map((asset:any)=>{ return asset['children'] = [] })
-    //   const children = this.assets.filter((asset:any)=> asset.parentId != null)
-    //   const parent = this.assets.filter((asset:any)=> asset.parentId === null)
-      
-    //   this.assets.forEach((parent:any)=>{
-       
-    //         children.map((child: any)=>{
-    //           if(child.parentId == parent.id){
-    //             parent.children.push(child)
-             
-    //           }
-             
-    //         })
- 
-        
-    //     })
-   
-  
-    //   this.treeData = this.assets
-    //   this.dataSource.data = this.treeData
-  
-    //   console.log(treeData)
-    //   console.log(this.treeData)
-    // })
+    this.dataService.getAsstes().subscribe(res=>{
+      this.assets = res
+      this.dataSource.data = this.createTreeView(this.assets)
+    })
   
   }
 
@@ -145,10 +85,29 @@ export class AssetComponent implements OnInit {
 
   hasChild = (_:number, node: assetNode)=> !!node.children && node.children.length>0;
  
-
+  createTreeView(dataset:any): assetNode[]{
+    
+    const map :any = {};
+    dataset.forEach((aData:any) => map[aData.id] = aData);
+    const dataTree: any[] = [];
+  
+    dataset.forEach((d:any) => {
+      d['children'] = [];
+      console.log(dataset)
+      if (d.parentId !== null) {
+        map[d.parentId].children = map[d.parentId]?.children || [];
+        map[d.parentId].children.push(map[d.id]);
+      } else {
+        dataTree.push(map[d.id]);
+      }
+    });
+   
+    return dataTree;
+  };
 
   iterateTree(treeNode:any, selectedNode : any) {
-           if(treeNode.children.length === 0){
+    console.log(treeNode)
+           if(treeNode.children?.length === 0){
       
               const results = this.mesData.find((ele:any)=> ele.id == treeNode.id)
           
@@ -169,7 +128,7 @@ export class AssetComponent implements OnInit {
               }
               else{
                   let sum : any []= []
-                  treeNode.children.forEach((elem:any)=>{
+                  treeNode.children?.forEach((elem:any)=>{
                     const measurements :any = this.iterateTree(elem,selectedNode)
                     if(sum.length === 0){
                       sum = measurements
