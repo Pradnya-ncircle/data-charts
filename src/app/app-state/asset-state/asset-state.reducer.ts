@@ -1,84 +1,67 @@
+import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
+import { createReducer, on } from "@ngrx/store";
+import { Asset, ChartData } from "src/app/assets/asset-data.model";
+import { Measurement } from "src/app/assets/measurement.model";
+import { DataActionTypes } from "./asset-state.actions";
 
-// import { Action, createReducer,on } from "@ngrx/store"
+export interface AssetState extends EntityState<Asset>{
+    assetsLoaded : boolean;
+    selectedAssetId : number
+}
 
-// import { chartData } from "src/app/charts/chart-data.model"
-// // import  { loadAssetData, loadAssetDataSuccess, loadSelectedAsset, loadSelectedAssetChartData } from './asset-state.actions'
-// import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-// import * as AssetActions from '../asset-state/asset-state.actions';
+export interface MeasurementState extends EntityState<Measurement>{
+   measurementsLoaded : boolean;
+}
 
-// export interface Asset {
-//     assetId : string,
-//     measurements : Object
-// }
+export interface ChartState extends EntityAdapter<ChartData>{
+    chartDataLoaded : boolean;
+}
 
-// export interface State extends EntityState<Asset>{
-//     selectedAssetId : string | null;
-// }
-
-// export const adapter: EntityAdapter<Asset> = createEntityAdapter<Asset>()
-
-// export const initialState: State = adapter.getInitialState({
-//     // additional entity state properties
-//     selectedAssetId: null,
-//   });
+export interface AppState {
+    asstes : AssetState,
+    measurements : MeasurementState,
+    chart : ChartState
+}
 
 
-// export const assetReducer = createReducer(
-//     initialState,
-//     on(AssetActions.selectAsset, (state, { assetId }) => {
-//       return { ...state, selectedAssetId: assetId };
-//     }),
-//     on(AssetActions.loadAssets, (state, { assets }) => {
-//       return adapter.addMany( assets , { ...state, selectedAssetId: null });
-//     })
-//   );
+export const assetAdapter: EntityAdapter<Asset> = createEntityAdapter<Asset>();
+export const measurementAdapter: EntityAdapter<Measurement> = createEntityAdapter<Measurement>();
+export const chartAdapter: EntityAdapter<ChartData> = createEntityAdapter<ChartData>();
 
-//   export const getSelectAssetId = (state: State) => state.selectedAssetId;
 
-//   const {
-//     selectIds,
-//     selectEntities,
-//     selectAll,
+export const assetInitialState = assetAdapter.getInitialState({ assetsLoaded : false}) 
+export const measurementInitialState = measurementAdapter.getInitialState({ measurementsLoaded : false}) 
+export const chartInitialState = chartAdapter.getInitialState({ chartDataLoaded : false}) 
 
-//   } = adapter.getSelectors();
-   
-//   export const selectAssetIds = selectIds;
-   
-//   export const selectAssetEntities = selectEntities;
-   
-//   export const selectAllAsstes = selectAll;
-   
+export const initialState = {
+    assets : assetInitialState,
+    measurements : measurementInitialState,
+    chartData : chartInitialState
+}
 
-//   export function reducer(state: State | undefined, action: Action) {
-//     return assetReducer(state, action);
-//   }
+export const Reducer = createReducer(
+    initialState,
+    
+    on(DataActionTypes.assetsLoaded, (state, action)=>({
+        ...state,
+        assetsLoaded : true,
+        assets : assetAdapter.setAll(action.assets, state.assets)
+    })),
+     
+    on(DataActionTypes.measurementsLoaded, (state, action)=>({
+        ...state,
+        measurementsLoaded : true,
+        measurements : measurementAdapter.setAll(action.measurements, state.measurements)
+    })),
 
-// // export const assetReducer = createReducer(
-// //     initialState,
-// //     on(loadAssetData, ((state, action)=>{
-// //         console.log("called")
-// //         return {
-// //             ...state
-// //         }
-// //     })),
+    on(DataActionTypes.currentAsset, (state, action)=>({
+        ...state,
+        selectedAssetId : action.assetId, 
+    })),
 
-// //     on(loadAssetDataSuccess, state=>({
-// //             ...state,
-// //             assets :state.assets        
-// //     })),
+    on(DataActionTypes.setChartData, (state,action)=>({
+        ...state,
+        chartData : chartAdapter.setAll(action.chartData, state.chartData)
+    }))
 
-// //     on(loadSelectedAsset, ((state, action)=>{
-// //         return {
-// //             ...state,
-// //             assets : state.assets.filter((asset)=> { asset.assetId === action._p.selectedAsset }),
-// //             selectedAsset : action._p.selectedAsset
-// //         }
-// //     })),
-
-// //     on( loadSelectedAssetChartData, ((state, action)=>{
-// //         return {
-// //             ...state,
-// //             chartsData : action._p.selectectedAssetChartData
-// //         }
-// //     }))
-// // )
+)

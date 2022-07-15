@@ -25,6 +25,7 @@
     selectedAssetId = 5;
     title = 'Front End Assignment';
     assets : Asset [] = [];
+    availableAsset : any;
     measurementData : Measurement [] = [];
     dates : any[] = [];
     measurements: any[] =[];
@@ -38,10 +39,7 @@
     });
 
     dataSource = new MatTreeNestedDataSource<assetNode>();
-    constructor(private dataService : GetAssetDataService, private datePipe : DatePipe){
-      
-    
-    }
+    constructor(private dataService : GetAssetDataService, private datePipe : DatePipe){}
 
     ngOnInit(): void { 
 
@@ -76,7 +74,7 @@
     
       return dataTree;
     };
-    availableAsset : any;
+    
 
     iterateTree(treeNode:any, selectedNode : any) {
 
@@ -121,7 +119,7 @@
       
       this.chartData = [
                           {
-                              data :dataset,
+                              data : dataset,
                               label : 'Asset '+ selected, 
                               fill : false,
                               tension: 0,
