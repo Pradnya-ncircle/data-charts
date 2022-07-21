@@ -3,8 +3,6 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { map, switchMap, concatMap } from "rxjs";
 import { GetAssetDataService } from "src/app/assets/get-asset-data.service";
 import { DataActionTypes } from "./asset-state.actions";
-
-
 @Injectable()
 export class Effects {
 

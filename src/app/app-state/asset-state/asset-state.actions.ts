@@ -1,7 +1,16 @@
-import { createAction, props } from "@ngrx/store";
+import { Action, createAction, props } from "@ngrx/store";
 import { Asset, ChartData } from "src/app/assets/asset-data.model";
 import { Measurement } from "src/app/assets/measurement.model";
 
+
+export enum appActionTypes {
+    loadAllAssets = '[Assets] Load all assets via service',
+    assetsLoaded = '[Assets Effect] Assets loaded successfully',
+    loadAllMeasurements = '[Measurements] Load all measurements via service',
+    measurementsLoaded = '[Measurements Effect] Measurements loaded successfully',
+    currentAsset =  '[Assets] Get currently selected asset',
+    setChartData =  '[charts] Get chart data for current asset',
+}
 
 export const loadAllAssets = createAction(
     '[Assets] Load all assets via service',
@@ -31,7 +40,6 @@ export const setChartData = createAction(
     props<{chartData : ChartData[]}>()
 )
 
-
 export const DataActionTypes = {
     loadAllAssets,
     assetsLoaded,
@@ -40,3 +48,4 @@ export const DataActionTypes = {
     currentAsset,
     setChartData
 }
+

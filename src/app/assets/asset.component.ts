@@ -3,6 +3,9 @@
   import { Component, OnInit, ViewChild } from '@angular/core';
   import { MatTreeNestedDataSource } from '@angular/material/tree';
   import { emptyProps, Store } from '@ngrx/store';
+  import { AppState } from '../app-state/app.state';
+import { getAllAssets } from '../app-state/asset-state/asset-state.selectors';
+
  
   import { Asset } from './asset-data.model';
   import { GetAssetDataService } from './get-asset-data.service';
@@ -39,11 +42,15 @@
     });
 
     dataSource = new MatTreeNestedDataSource<assetNode>();
-    constructor(private dataService : GetAssetDataService, private datePipe : DatePipe){}
+    constructor(private dataService : GetAssetDataService, private datePipe : DatePipe, private store : Store<AppState>){}
 
     ngOnInit(): void { 
 
-      this.dataService.getAssets().subscribe(res=>{
+      // this.dataService.getAssets().subscribe(res=>{
+      //   this.assets = res
+        
+      // })
+      this.store.select(getAllAssets).subscribe((res: Asset[])=> {
         this.assets = res
         this.dataSource.data = this.createTreeView(this.assets)
       })
