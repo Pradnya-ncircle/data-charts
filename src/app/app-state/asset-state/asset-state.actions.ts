@@ -12,40 +12,37 @@ export enum appActionTypes {
     setChartData =  '[charts] Get chart data for current asset',
 }
 
-export const loadAllAssets = createAction(
-    '[Assets] Load all assets via service',
-);
-
-export const assetsLoaded = createAction(
-    '[Assets Effect] Assets loaded successfully',
-    props<{assets : Asset[]}>()
-)
-
-export const loadAllMeasurements = createAction(
-    '[Measurements] Load all measurements via service',
-)
-
-export const measurementsLoaded = createAction(
-    '[Measurements Effect] Measurements loaded successfully',
-    props<{measurements : Measurement[]}>()
-)
-
-export const currentAsset = createAction(
-    '[Assets] Get currently selected asset',
-    props<{assetId : number}>()
-)
-
-export const setChartData = createAction(
-    '[charts] Get chart data for current asset',
-    props<{chartData : ChartData[]}>()
-)
-
-export const DataActionTypes = {
-    loadAllAssets,
-    assetsLoaded,
-    loadAllMeasurements,
-    measurementsLoaded,
-    currentAsset,
-    setChartData
+export class loadAllAssets implements Action {
+    public readonly type = appActionTypes.loadAllAssets
+    // constructor(public payload : Asset[]){}
 }
+
+export class assetsLoaded implements Action {
+    public readonly type = appActionTypes.assetsLoaded
+    constructor(public payload : Asset[]){}
+}
+
+export class loadAllMeasurements implements Action {
+    public readonly type = appActionTypes.loadAllMeasurements
+    // constructor(public payload : Measurements[]){}
+}
+
+
+export class measurementsLoaded implements Action {
+    public readonly type = appActionTypes.measurementsLoaded
+    constructor(public payload : Measurement[]){}
+}
+
+// export class currentAsset implements Action {
+//     public readonly type = appActionTypes.currentAsset
+//     constructor(public assetId : number){}
+// }
+
+// export class setChartData implements Action {
+//     public readonly type = appActionTypes.setChartData
+//     constructor(public payload : ChartData[]){}
+// }
+
+export type ActionTypes = loadAllAssets | assetsLoaded | loadAllMeasurements | measurementsLoaded  
+
 

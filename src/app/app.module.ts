@@ -24,10 +24,6 @@ import  { Effects } from './app-state/asset-state/asset-state.effects';
 import { metaReducers } from './app-state/app.state';
 import { Reducer } from './app-state/asset-state/asset-state.reducer';
 
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent,

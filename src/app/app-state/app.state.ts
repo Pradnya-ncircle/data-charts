@@ -9,25 +9,16 @@ import {
 import { environment } from 'src/environments/environment';
 import * as fromAppState from './asset-state/asset-state.reducer';
 
-  
   export interface AppState {
-    assets : fromAppState.AssetState,
-    measurements : fromAppState.MeasurementState,
-    charts: fromAppState.ChartState
-
+    state : fromAppState.AppState
   }
-  
-  // export const allReducers = combineReducers({
-  //   assets : assetReducer,
-  //   measurements :measurementReducer,
-  //   charts: chartsReducer
-  //   })
+    
+export const selectExampleModule = createFeatureSelector<fromAppState.AppState>('example');
 
-  // export const allReducers :  ActionReducerMap<AppState, any> = {
-  //   assets : fromAppState.assetReducer,
-  //   measurements :fromAppState.measurementReducer,
-  //   charts: fromAppState.chartsReducer
-  // }
-  
-  
-  export const metaReducers: MetaReducer<AppState>[] = !environment.production ? [] : [];
+export const selectAssetState = createSelector(selectExampleModule, fromAppState.selectAssetState);
+export const selectMeasurementState = createSelector(selectExampleModule, fromAppState.selectMeasurementsState);
+
+export const selectAllAssets = createSelector(selectAssetState, fromAppState.selectAllAssets);
+export const selectAllMeasurements = createSelector(selectMeasurementState, fromAppState.selectAllMeasurements);
+
+export const metaReducers: MetaReducer<AppState>[] = !environment.production ? [] : [];

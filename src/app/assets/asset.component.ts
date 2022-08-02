@@ -3,6 +3,7 @@
   import { Component, OnInit, ViewChild } from '@angular/core';
   import { MatTreeNestedDataSource } from '@angular/material/tree';
   import { emptyProps, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
   import { AppState } from '../app-state/app.state';
 import { getAllAssets } from '../app-state/asset-state/asset-state.selectors';
 
@@ -37,6 +38,8 @@ import { getAllAssets } from '../app-state/asset-state/asset-state.selectors';
     chartLabels : any;
     chartOptions : any;
 
+    responseAsset$ : Observable<any> | undefined
+
     treeControl = new NestedTreeControl<assetNode>(node => {
       return node.children;
     });
@@ -46,14 +49,17 @@ import { getAllAssets } from '../app-state/asset-state/asset-state.selectors';
 
     ngOnInit(): void { 
 
-      // this.dataService.getAssets().subscribe(res=>{
-      //   this.assets = res
-        
-      // })
-      this.store.select(getAllAssets).subscribe((res: Asset[])=> {
+      this.dataService.getAssets().subscribe(res=>{
         this.assets = res
-        this.dataSource.data = this.createTreeView(this.assets)
+        
       })
+
+ 
+      // this.store.select(getAllAssets).subscribe((res: Asset[])=> {
+      //   console.log(res);
+      //   // this.assets = res
+      //   // this.dataSource.data = this.createTreeView(this.assets)
+      // })
 
       this.dataService.getData().subscribe(res=>{
         this.measurementData = res;

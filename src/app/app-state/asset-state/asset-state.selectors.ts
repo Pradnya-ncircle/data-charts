@@ -4,7 +4,6 @@ import { Asset } from "src/app/assets/asset-data.model";
 import { AppState, selectAllAssets } from "./asset-state.reducer";
 import * as reducer from './asset-state.reducer';
 
-
  const featureSelector = createFeatureSelector<reducer.AppState>('appState')
  const assetFeatureSelector = createFeatureSelector<reducer.AssetState>('assetState')
  const measurementFeatureSelector = createFeatureSelector<reducer.MeasurementState>('measurementState')

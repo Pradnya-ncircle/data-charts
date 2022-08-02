@@ -18,4 +18,6 @@ export class GetAssetDataService {
     return this.http.get('assets/data/assets.json')
   }
 
+  getTreeView(asset:any){console.log(asset)}
+
 }
