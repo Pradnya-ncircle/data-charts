@@ -51,7 +51,7 @@ import { getAllAssets } from '../app-state/asset-state/asset-state.selectors';
 
       this.dataService.getAssets().subscribe(res=>{
         this.assets = res
-        
+           this.dataSource.data = this.createTreeView(this.assets)
       })
 
  
